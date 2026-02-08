@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitLife - Health & Wellness Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #10b981;
+            --warning: #f59e0b;
+            --bg: #0f172a;
+            --bg-light: #1e293b;
+            --card-bg: #1e293b;
+            --text: #f1f5f9;
+            --text-dim: #94a3b8;
+            --border: #334155;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-gradient {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        .bg-gradient::before,
+        .bg-gradient::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.3;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .bg-gradient::before {
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            top: -300px;
+            right: -300px;
+        }
+
+        .bg-gradient::after {
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, #10b981, #6366f1);
+            bottom: -250px;
+            left: -250px;
+            animation-delay: 5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(50px, -50px) rotate(120deg); }
+            66% { transform: translate(-30px, 30px) rotate(240deg); }
+        }
+
+        /* Header */
+        .header {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 1.25rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Syne', sans-serif;
+            letter-spacing: -0.5px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #6366f1, #ec4899);
+            transition: width 0.3s;
+        }
+
+        .nav a:hover {
+            color: #fff;
+        }
+
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 6rem 0 5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            font-family: 'Syne', sans-serif;
+            background: linear-gradient(135deg, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: var(--text-dim);
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Section */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            font-family: 'Syne', sans-serif;
+            background: linear-gradient(135deg, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #ec4899);
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px);
+            border-color: #6366f1;
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.2);
+        }
+
+        .info-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .card-description {
+            color: var(--text-dim);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .card-list {
+            list-style: none;
+        }
+
+        .card-list li {
+            padding: 0.6rem 0;
+            color: var(--text-dim);
+            position: relative;
+            padding-left: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .card-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #6366f1;
+            font-weight: 700;
+        }
+
+        /* Game Cards */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 3rem;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1), transparent);
+            border-radius: 50%;
+            transform: translate(50%, -50%);
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 3rem;
+            border: 1px solid var(--border);
+        }
+
+        .tool-header {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .tool-icon {
+            font-size: 3rem;
+        }
+
+        .tool-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        /* Input Styles */
+        .input-wrapper {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .text-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            font-size: 1rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .text-input:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: var(--bg);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: #6366f1;
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        /* Results */
+        .nutrition-result {
+            background: rgba(99, 102, 241, 0.1);
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .result-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+
+        .nutrition-item {
+            background: var(--bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .nutrition-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nutrition-label {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .error-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+
+        /* Chat */
+        .chat-container {
+            height: 550px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #6366f1;
+            border-radius: 3px;
+        }
+
+        .chat-message {
+            max-width: 80%;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            line-height: 1.6;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-message.user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            color: white;
+        }
+
+        .chat-message.bot {
+            align-self: flex-start;
+            background: var(--card-bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .typing {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            width: fit-content;
+        }
+
+        .typing span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #6366f1;
+            animation: bounce 1.4s infinite;
+        }
+
+        .typing span:nth-child(2) { animation-delay: 0.2s; }
+        .typing span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes bounce {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+            30% { transform: translateY(-10px); opacity: 1; }
+        }
+
+        .quick-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .quick-btn {
+            padding: 0.6rem 1.25rem;
+            background: var(--bg);
+            border: 2px solid var(--border);
+            color: var(--text);
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .quick-btn:hover {
+            border-color: #6366f1;
+            background: rgba(99, 102, 241, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Quiz Styles */
+        .progress-bar {
+            background: var(--bg);
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 2.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6366f1, #ec4899);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .question-text {
+            font-size: 1.6rem;
+            margin-bottom: 2.5rem;
+            color: var(--text);
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .option-btn {
+            width: 100%;
+            padding: 1.5rem;
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            font-size: 1.05rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--text);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .option-btn:hover {
+            border-color: #6366f1;
+            background: rgba(99, 102, 241, 0.1);
+            transform: translateX(5px);
+        }
+
+        .option-btn.correct {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: #10b981;
+            color: #10b981;
+        }
+
+        .option-btn.incorrect {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: #ef4444;
+            color: #fca5a5;
+        }
+
+        .explanation-box {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 4px solid #6366f1;
+            border-radius: 12px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .score-display {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .score-emoji {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .score-value {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        /* Fitness Challenge Game */
+        .challenge-display {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .challenge-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .challenge-name {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .challenge-desc {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+        }
+
+        .timer-display {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 2rem 0;
+        }
+
+        .reps-counter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .rep-display {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .rep-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .rep-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
+        }
+
+        .rep-btn:active {
+            transform: scale(0.95);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat-box {
+            background: var(--bg);
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #6366f1;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-dim);
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
+            padding: 3rem 0;
+            margin-top: 5rem;
+            text-align: center;
+        }
+
+        .footer p {
+            color: var(--text-dim);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .tools-grid,
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nutrition-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2.25rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        function App() {
+            return (
+                <>
+                    <header className="header">
+                        <div className="container">
+                            <div className="header-content">
+                                <div className="logo">FitLife</div>
+                                <ul className="nav">
+                                    <li><a onClick={() => scrollTo('awareness')}>Health Tips</a></li>
+                                    <li><a onClick={() => scrollTo('games')}>Games</a></li>
+                                    <li><a onClick={() => scrollTo('tools')}>Tools</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </header>
+
+                    <div className="hero">
+                        <div className="container">
+                            <h1>Transform Your Health Journey</h1>
+                            <p>Learn, play, track, and achieve your fitness goals with AI-powered tools and interactive games</p>
+                            <button className="cta-button" onClick={() => scrollTo('games')}>
+                                Start Playing →
+                            </button>
+                        </div>
+                    </div>
+
+                    <AwarenessSection />
+                    <GamesSection />
+                    <ToolsSection />
+
+                    <footer className="footer">
+                        <div className="container">
+                            <p>© 2024 FitLife - Your Health Awareness Platform</p>
+                        </div>
+                    </footer>
+                </>
+            );
+        }
+
+        function scrollTo(id) {
+            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function AwarenessSection() {
+            const topics = [
+                {
+                    icon: '💪',
+                    title: 'Regular Exercise',
+                    description: 'Physical activity strengthens your body and mind, reducing disease risk.',
+                    points: ['Improves heart health', 'Builds muscle & bone', 'Boosts mental wellness', 'Maintains healthy weight']
+                },
+                {
+                    icon: '🥗',
+                    title: 'Balanced Nutrition',
+                    description: 'Proper nutrition fuels your body with essential nutrients for optimal function.',
+                    points: ['Eat colorful fruits & veggies', 'Choose whole grains', 'Include lean proteins', 'Limit processed foods']
+                },
+                {
+                    icon: '😴',
+                    title: 'Quality Sleep',
+                    description: 'Sleep is essential for recovery, immune function, and mental clarity.',
+                    points: ['Get 7-9 hours nightly', 'Consistent schedule', 'Relaxing bedtime routine', 'Dark, cool bedroom']
+                },
+                {
+                    icon: '🧘',
+                    title: 'Mental Wellness',
+                    description: 'Mental health is as important as physical health for overall well-being.',
+                    points: ['Practice mindfulness', 'Stay socially connected', 'Manage stress well', 'Seek help when needed']
+                },
+                {
+                    icon: '💧',
+                    title: 'Stay Hydrated',
+                    description: 'Water is crucial for every bodily function and maintaining energy levels.',
+                    points: ['Drink 8 glasses daily', 'More during exercise', 'Monitor hydration', 'Eat water-rich foods']
+                },
+                {
+                    icon: '🚶',
+                    title: 'Active Lifestyle',
+                    description: 'Reduce sedentary time to prevent health issues and boost energy.',
+                    points: ['Break every 30 minutes', 'Take the stairs', 'Walk during calls', 'Stretch regularly']
+                }
+            ];
+
+            return (
+                <section id="awareness" className="section">
+                    <div className="container">
+                        <div className="section-header">
+                            <h2 className="section-title">Health & Fitness Essentials</h2>
+                            <p className="section-subtitle">Build lasting wellness habits with these fundamental principles</p>
+                        </div>
+                        <div className="cards-grid">
+                            {topics.map((topic, i) => (
+                                <div key={i} className="info-card">
+                                    <span className="card-icon">{topic.icon}</span>
+                                    <h3 className="card-title">{topic.title}</h3>
+                                    <p className="card-description">{topic.description}</p>
+                                    <ul className="card-list">
+                                        {topic.points.map((point, j) => (
+                                            <li key={j}>{point}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        function GamesSection() {
+            return (
+                <section id="games" className="section" style={{background: 'rgba(30, 41, 59, 0.3)'}}>
+                    <div className="container">
+                        <div className="section-header">
+                            <h2 className="section-title">Interactive Health Games</h2>
+                            <p className="section-subtitle">Test your knowledge and track your fitness progress</p>
+                        </div>
+                        <div className="games-grid">
+                            <HealthQuiz />
+                            <FitnessChallenge />
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        function HealthQuiz() {
+            const [current, setCurrent] = useState(0);
+            const [score, setScore] = useState(0);
+            const [showResult, setShowResult] = useState(false);
+            const [selected, setSelected] = useState(null);
+
+            const questions = [
+                {
+                    q: "How many hours of sleep should adults get per night?",
+                    opts: ["4-5 hours", "6-7 hours", "7-9 hours", "10-12 hours"],
+                    correct: 2,
+                    exp: "Adults should aim for 7-9 hours of quality sleep for optimal health."
+                },
+                {
+                    q: "How much water should you drink daily?",
+                    opts: ["2 glasses", "4 glasses", "8 glasses", "12 glasses"],
+                    correct: 2,
+                    exp: "About 8 glasses (64 oz) daily, varying by activity and climate."
+                },
+                {
+                    q: "Recommended weekly exercise time?",
+                    opts: ["30 minutes", "75 minutes", "150 minutes", "300 minutes"],
+                    correct: 2,
+                    exp: "At least 150 minutes of moderate aerobic activity per week."
+                },
+                {
+                    q: "Essential nutrient for muscle building?",
+                    opts: ["Carbohydrates", "Protein", "Fat", "Fiber"],
+                    correct: 1,
+                    exp: "Protein provides amino acids for muscle building and repair."
+                },
+                {
+                    q: "Healthy resting heart rate for adults?",
+                    opts: ["40-50 bpm", "60-100 bpm", "110-130 bpm", "140-160 bpm"],
+                    correct: 1,
+                    exp: "Normal resting heart rate ranges from 60-100 beats per minute."
+                },
+                {
+                    q: "How often to break from sitting?",
+                    opts: ["Every 10 min", "Every 30 min", "Every 2 hours", "Once daily"],
+                    correct: 1,
+                    exp: "Take breaks every 30 minutes to reduce health risks of sitting."
+                },
+                {
+                    q: "Percentage of plate for fruits & vegetables?",
+                    opts: ["25%", "50%", "75%", "100%"],
+                    correct: 1,
+                    exp: "Half your plate should be fruits and vegetables for balance."
+                },
+                {
+                    q: "Vitamin primarily from sunlight?",
+                    opts: ["Vitamin A", "Vitamin C", "Vitamin D", "Vitamin E"],
+                    correct: 2,
+                    exp: "Vitamin D comes from sun exposure and is vital for bones."
+                }
+            ];
+
+            const handleAnswer = (idx) => {
+                if (selected !== null) return;
+                setSelected(idx);
+                if (idx === questions[current].correct) setScore(score + 1);
+
+                setTimeout(() => {
+                    if (current < questions.length - 1) {
+                        setCurrent(current + 1);
+                        setSelected(null);
+                    } else {
+                        setShowResult(true);
+                    }
+                }, 2000);
+            };
+
+            const restart = () => {
+                setCurrent(0);
+                setScore(0);
+                setShowResult(false);
+                setSelected(null);
+            };
+
+            if (showResult) {
+                const percent = (score / questions.length) * 100;
+                return (
+                    <div className="game-card">
+                        <div className="score-display">
+                            <div className="score-emoji">{percent >= 60 ? '🏆' : '📚'}</div>
+                            <h2 style={{fontSize: '2rem', marginBottom: '1rem'}}>Quiz Complete!</h2>
+                            <div className="score-value">{score}/{questions.length}</div>
+                            <p style={{color: 'var(--text-dim)', fontSize: '1.2rem', marginBottom: '2rem'}}>
+                                {percent >= 80 ? "Outstanding! You're a health expert!" :
+                                 percent >= 60 ? "Great job! You know your health facts!" :
+                                 "Keep learning! You'll improve with practice!"}
+                            </p>
+                            <button className="btn" onClick={restart}>Play Again</button>
+                        </div>
+                    </div>
+                );
+            }
+
+            const q = questions[current];
+
+            return (
+                <div className="game-card">
+                    <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem'}}>
+                        <span style={{color: 'var(--text-dim)', fontWeight: '600'}}>
+                            Question {current + 1}/{questions.length}
+                        </span>
+                        <span style={{color: '#6366f1', fontWeight: '700'}}>Score: {score}</span>
+                    </div>
+                    <div className="progress-bar">
+                        <div className="progress-fill" style={{width: `${((current + 1) / questions.length) * 100}%`}}></div>
+                    </div>
+                    <h3 className="question-text">{q.q}</h3>
+                    <div>
+                        {q.opts.map((opt, i) => (
+                            <button
+                                key={i}
+                                className={`option-btn ${selected !== null ? (i === q.correct ? 'correct' : i === selected ? 'incorrect' : '') : ''}`}
+                                onClick={() => handleAnswer(i)}
+                                disabled={selected !== null}
+                            >
+                                {opt}
+                            </button>
+                        ))}
+                    </div>
+                    {selected !== null && (
+                        <div className="explanation-box">
+                            <strong style={{color: selected === q.correct ? '#10b981' : '#f59e0b'}}>
+                                {selected === q.correct ? '✓ Correct!' : '✗ Incorrect'}
+                            </strong>
+                            <p style={{marginTop: '0.5rem', color: 'var(--text-dim)'}}>{q.exp}</p>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        function FitnessChallenge() {
+            const [stage, setStage] = useState('select'); // select, active, complete
+            const [challenge, setChallenge] = useState(null);
+            const [reps, setReps] = useState(0);
+            const [timer, setTimer] = useState(0);
+            const [totalReps, setTotalReps] = useState(0);
+            const [totalTime, setTotalTime] = useState(0);
+            const [challengesComplete, setChallengesComplete] = useState(0);
+
+            const challenges = [
+                { icon: '🏃', name: 'Jumping Jacks', desc: 'Do 20 jumping jacks', target: 20, timed: false },
+                { icon: '🧘', name: 'Wall Sit', desc: 'Hold for 30 seconds', target: 30, timed: true },
+                { icon: '💪', name: 'Push-ups', desc: 'Complete 15 push-ups', target: 15, timed: false },
+                { icon: '🦵', name: 'Squats', desc: 'Do 25 squats', target: 25, timed: false },
+                { icon: '🧍', name: 'Plank', desc: 'Hold for 45 seconds', target: 45, timed: true },
+                { icon: '🤸', name: 'Burpees', desc: 'Complete 10 burpees', target: 10, timed: false }
+            ];
+
+            useEffect(() => {
+                if (stage === 'active' && challenge?.timed) {
+                    const interval = setInterval(() => {
+                        setTimer(t => {
+                            if (t + 1 >= challenge.target) {
+                                completeChallenge();
+                                return challenge.target;
+                            }
+                            return t + 1;
+                        });
+                    }, 1000);
+                    return () => clearInterval(interval);
+                }
+            }, [stage, challenge]);
+
+            const startChallenge = (c) => {
+                setChallenge(c);
+                setReps(0);
+                setTimer(0);
+                setStage('active');
+            };
+
+            const addRep = () => {
+                if (reps + 1 >= challenge.target) {
+                    completeChallenge();
+                }
+                setReps(reps + 1);
+            };
+
+            const completeChallenge = () => {
+                setTotalReps(totalReps + (challenge.timed ? 0 : challenge.target));
+                setTotalTime(totalTime + (challenge.timed ? challenge.target : 0));
+                setChallengesComplete(challengesComplete + 1);
+                setStage('complete');
+            };
+
+            if (stage === 'complete') {
+                return (
+                    <div className="game-card">
+                        <div className="score-display">
+                            <div className="score-emoji">🎉</div>
+                            <h2 style={{fontSize: '2rem', marginBottom: '1rem'}}>Challenge Complete!</h2>
+                            <p style={{color: 'var(--text-dim)', fontSize: '1.2rem', marginBottom: '2rem'}}>
+                                Great work on completing {challenge.name}!
+                            </p>
+                            <div className="stats-grid">
+                                <div className="stat-box">
+                                    <div className="stat-value">{challengesComplete}</div>
+                                    <div className="stat-label">Completed</div>
+                                </div>
+                                <div className="stat-box">
+                                    <div className="stat-value">{totalReps}</div>
+                                    <div className="stat-label">Total Reps</div>
+                                </div>
+                                <div className="stat-box">
+                                    <div className="stat-value">{totalTime}s</div>
+                                    <div className="stat-label">Time Held</div>
+                                </div>
+                            </div>
+                            <button className="btn" style={{marginTop: '2rem'}} onClick={() => setStage('select')}>
+                                Next Challenge
+                            </button>
+                        </div>
+                    </div>
+                );
+            }
+
+            if (stage === 'active') {
+                return (
+                    <div className="game-card">
+                        <div className="challenge-display">
+                            <div className="challenge-icon">{challenge.icon}</div>
+                            <h3 className="challenge-name">{challenge.name}</h3>
+                            <p className="challenge-desc">{challenge.desc}</p>
+                            
+                            {challenge.timed ? (
+                                <div className="timer-display">{timer}s</div>
+                            ) : (
+                                <div className="reps-counter">
+                                    <div className="rep-display">{reps}/{challenge.target}</div>
+                                    <button className="rep-btn" onClick={addRep}>+</button>
+                                </div>
+                            )}
+
+                            <div style={{marginTop: '2rem'}}>
+                                <div className="progress-bar">
+                                    <div className="progress-fill" style={{
+                                        width: `${((challenge.timed ? timer : reps) / challenge.target) * 100}%`
+                                    }}></div>
+                                </div>
+                            </div>
+
+                            <button className="btn btn-secondary" style={{marginTop: '2rem'}} onClick={() => setStage('select')}>
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="game-card">
+                    <div className="tool-header">
+                        <div className="tool-icon">🎯</div>
+                        <h3 className="tool-title">Fitness Challenge</h3>
+                    </div>
+                    <p style={{color: 'var(--text-dim)', marginBottom: '2rem', fontSize: '1.1rem'}}>
+                        Choose a quick fitness challenge and track your progress!
+                    </p>
+                    <div style={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem'}}>
+                        {challenges.map((c, i) => (
+                            <button
+                                key={i}
+                                className="option-btn"
+                                onClick={() => startChallenge(c)}
+                                style={{marginBottom: 0}}
+                            >
+                                <div style={{fontSize: '2rem', marginBottom: '0.5rem'}}>{c.icon}</div>
+                                <div style={{fontWeight: '700', marginBottom: '0.25rem'}}>{c.name}</div>
+                                <div style={{fontSize: '0.875rem', color: 'var(--text-dim)'}}>{c.desc}</div>
+                            </button>
+                        ))}
+                    </div>
+                    {challengesComplete > 0 && (
+                        <div className="stats-grid" style={{marginTop: '2rem'}}>
+                            <div className="stat-box">
+                                <div className="stat-value">{challengesComplete}</div>
+                                <div className="stat-label">Completed</div>
+                            </div>
+                            <div className="stat-box">
+                                <div className="stat-value">{totalReps}</div>
+                                <div className="stat-label">Total Reps</div>
+                            </div>
+                            <div className="stat-box">
+                                <div className="stat-value">{totalTime}s</div>
+                                <div className="stat-label">Time Held</div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        function ToolsSection() {
+            return (
+                <section id="tools" className="section">
+                    <div className="container">
+                        <div className="section-header">
+                            <h2 className="section-title">AI-Powered Health Tools</h2>
+                            <p className="section-subtitle">Track nutrition and get instant answers to health questions</p>
+                        </div>
+                        <div className="tools-grid">
+                            <CalorieTracker />
+                            <HealthChatbot />
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        function CalorieTracker() {
+            const [food, setFood] = useState('');
+            const [result, setResult] = useState(null);
+            const [loading, setLoading] = useState(false);
+            const [error, setError] = useState(null);
+
+            const track = async () => {
+                if (!food.trim()) return;
+                setLoading(true);
+                setError(null);
+                setResult(null);
+
+                try {
+                    const res = await fetch("https://api.anthropic.com/v1/messages", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            model: "claude-sonnet-4-20250514",
+                            max_tokens: 1000,
+                            messages: [{
+                                role: "user",
+                                content: `Nutrition for "${food}" (100g/1 cup). Return JSON only:
+{"name":"","serving":"","calories":0,"protein":"0g","carbs":"0g","fat":"0g"}
+If not found: {"error":"Not found"}`
+                            }]
+                        })
+                    });
+                    const data = await res.json();
+                    const text = data.content.find(i => i.type === 'text')?.text || '';
+                    const clean = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+                    const nutrition = JSON.parse(clean);
+                    nutrition.error ? setError(nutrition.error) : setResult(nutrition);
+                } catch {
+                    setError('Unable to fetch data');
+                }
+                setLoading(false);
+            };
+
+            return (
+                <div className="tool-card">
+                    <div className="tool-header">
+                        <div className="tool-icon">🍎</div>
+                        <h3 className="tool-title">Calorie Tracker</h3>
+                    </div>
+                    <div className="input-wrapper">
+                        <input
+                            type="text"
+                            className="text-input"
+                            placeholder="Enter food (e.g., banana, chicken)"
+                            value={food}
+                            onChange={(e) => setFood(e.target.value)}
+                            onKeyPress={(e) => e.key === 'Enter' && track()}
+                        />
+                        <button className="btn" onClick={track} disabled={loading || !food.trim()}>
+                            {loading ? 'Searching...' : 'Search'}
+                        </button>
+                    </div>
+                    {error && <div className="error-box">{error}</div>}
+                    {result && (
+                        <div className="nutrition-result">
+                            <h4 className="result-title">{result.name} - {result.serving}</h4>
+                            <div className="nutrition-grid">
+                                <div className="nutrition-item">
+                                    <div className="nutrition-value">{result.calories}</div>
+                                    <div className="nutrition-label">Calories</div>
+                                </div>
+                                <div className="nutrition-item">
+                                    <div className="nutrition-value">{result.protein}</div>
+                                    <div className="nutrition-label">Protein</div>
+                                </div>
+                                <div className="nutrition-item">
+                                    <div className="nutrition-value">{result.carbs}</div>
+                                    <div className="nutrition-label">Carbs</div>
+                                </div>
+                                <div className="nutrition-item">
+                                    <div className="nutrition-value">{result.fat}</div>
+                                    <div className="nutrition-label">Fat</div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        function HealthChatbot() {
+            const [messages, setMessages] = useState([
+                { text: "Hi! Ask me anything about fitness, nutrition, or wellness!", type: 'bot' }
+            ]);
+            const [input, setInput] = useState('');
+            const [typing, setTyping] = useState(false);
+            const ref = useRef(null);
+
+            const quickQs = ["Benefits of running?", "Best protein sources?", "Reduce stress?", "Water intake?"];
+
+            useEffect(() => {
+                ref.current?.scrollIntoView({ behavior: 'smooth' });
+            }, [messages, typing]);
+
+            const send = async (text = input) => {
+                if (!text.trim()) return;
+                setMessages(m => [...m, { text, type: 'user' }]);
+                setInput('');
+                setTyping(true);
+
+                try {
+                    const res = await fetch("https://api.anthropic.com/v1/messages", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            model: "claude-sonnet-4-20250514",
+                            max_tokens: 1000,
+                            messages: [{ role: "user", content: `Health assistant answer: ${text}` }]
+                        })
+                    });
+                    const data = await res.json();
+                    const reply = data.content.find(i => i.type === 'text')?.text || "I'm here to help!";
+                    setMessages(m => [...m, { text: reply, type: 'bot' }]);
+                } catch {
+                    setMessages(m => [...m, { text: "Error. Try again!", type: 'bot' }]);
+                }
+                setTyping(false);
+            };
+
+            return (
+                <div className="tool-card">
+                    <div className="tool-header">
+                        <div className="tool-icon">💬</div>
+                        <h3 className="tool-title">Health Q&A</h3>
+                    </div>
+                    <div className="quick-questions">
+                        {quickQs.map((q, i) => (
+                            <button key={i} className="quick-btn" onClick={() => send(q)}>{q}</button>
+                        ))}
+                    </div>
+                    <div className="chat-container">
+                        <div className="chat-messages">
+                            {messages.map((m, i) => (
+                                <div key={i} className={`chat-message ${m.type}`}>{m.text}</div>
+                            ))}
+                            {typing && (
+                                <div className="typing">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            )}
+                            <div ref={ref} />
+                        </div>
+                        <div className="input-wrapper">
+                            <input
+                                type="text"
+                                className="text-input"
+                                placeholder="Ask a health question..."
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                                onKeyPress={(e) => e.key === 'Enter' && send()}
+                            />
+                            <button className="btn" onClick={() => send()} disabled={!input.trim() || typing}>
+                                Send
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
