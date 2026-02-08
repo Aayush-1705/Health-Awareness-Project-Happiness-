@@ -1283,30 +1283,59 @@
                 setError(null);
                 setResult(null);
 
-                try {
-                    const res = await fetch("https://api.anthropic.com/v1/messages", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            model: "claude-sonnet-4-20250514",
-                            max_tokens: 1000,
-                            messages: [{
-                                role: "user",
-                                content: `Nutrition for "${food}" (100g/1 cup). Return JSON only:
-{"name":"","serving":"","calories":0,"protein":"0g","carbs":"0g","fat":"0g"}
-If not found: {"error":"Not found"}`
-                            }]
-                        })
-                    });
-                    const data = await res.json();
-                    const text = data.content.find(i => i.type === 'text')?.text || '';
-                    const clean = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
-                    const nutrition = JSON.parse(clean);
-                    nutrition.error ? setError(nutrition.error) : setResult(nutrition);
-                } catch {
-                    setError('Unable to fetch data');
-                }
-                setLoading(false);
+                // Built-in nutrition database
+                const nutritionDB = {
+                    'apple': { name: 'Apple', serving: '1 medium (182g)', calories: 95, protein: '0.5g', carbs: '25g', fat: '0.3g' },
+                    'banana': { name: 'Banana', serving: '1 medium (118g)', calories: 105, protein: '1.3g', carbs: '27g', fat: '0.4g' },
+                    'chicken breast': { name: 'Chicken Breast', serving: '100g', calories: 165, protein: '31g', carbs: '0g', fat: '3.6g' },
+                    'chicken': { name: 'Chicken Breast', serving: '100g', calories: 165, protein: '31g', carbs: '0g', fat: '3.6g' },
+                    'rice': { name: 'White Rice', serving: '1 cup cooked (158g)', calories: 205, protein: '4.3g', carbs: '45g', fat: '0.4g' },
+                    'brown rice': { name: 'Brown Rice', serving: '1 cup cooked (195g)', calories: 216, protein: '5g', carbs: '45g', fat: '1.8g' },
+                    'egg': { name: 'Egg', serving: '1 large (50g)', calories: 72, protein: '6g', carbs: '0.4g', fat: '5g' },
+                    'eggs': { name: 'Egg', serving: '1 large (50g)', calories: 72, protein: '6g', carbs: '0.4g', fat: '5g' },
+                    'broccoli': { name: 'Broccoli', serving: '1 cup chopped (91g)', calories: 31, protein: '2.5g', carbs: '6g', fat: '0.3g' },
+                    'salmon': { name: 'Salmon', serving: '100g', calories: 208, protein: '20g', carbs: '0g', fat: '13g' },
+                    'tuna': { name: 'Tuna', serving: '100g', calories: 132, protein: '28g', carbs: '0g', fat: '1.3g' },
+                    'bread': { name: 'Whole Wheat Bread', serving: '1 slice (28g)', calories: 69, protein: '3.6g', carbs: '12g', fat: '1g' },
+                    'milk': { name: 'Milk (2%)', serving: '1 cup (244g)', calories: 122, protein: '8g', carbs: '12g', fat: '4.8g' },
+                    'yogurt': { name: 'Greek Yogurt', serving: '1 cup (170g)', calories: 100, protein: '17g', carbs: '6g', fat: '0.7g' },
+                    'oats': { name: 'Oatmeal', serving: '1 cup cooked (234g)', calories: 166, protein: '5.9g', carbs: '28g', fat: '3.6g' },
+                    'oatmeal': { name: 'Oatmeal', serving: '1 cup cooked (234g)', calories: 166, protein: '5.9g', carbs: '28g', fat: '3.6g' },
+                    'pasta': { name: 'Pasta', serving: '1 cup cooked (140g)', calories: 220, protein: '8g', carbs: '43g', fat: '1.3g' },
+                    'potato': { name: 'Potato', serving: '1 medium (173g)', calories: 164, protein: '4.3g', carbs: '37g', fat: '0.2g' },
+                    'sweet potato': { name: 'Sweet Potato', serving: '1 medium (114g)', calories: 103, protein: '2.3g', carbs: '24g', fat: '0.2g' },
+                    'beef': { name: 'Beef (lean)', serving: '100g', calories: 250, protein: '26g', carbs: '0g', fat: '15g' },
+                    'pork': { name: 'Pork (lean)', serving: '100g', calories: 242, protein: '27g', carbs: '0g', fat: '14g' },
+                    'tofu': { name: 'Tofu', serving: '100g', calories: 76, protein: '8g', carbs: '1.9g', fat: '4.8g' },
+                    'cheese': { name: 'Cheddar Cheese', serving: '1 oz (28g)', calories: 114, protein: '7g', carbs: '0.4g', fat: '9g' },
+                    'almonds': { name: 'Almonds', serving: '1 oz (28g)', calories: 164, protein: '6g', carbs: '6g', fat: '14g' },
+                    'peanut butter': { name: 'Peanut Butter', serving: '2 tbsp (32g)', calories: 188, protein: '8g', carbs: '7g', fat: '16g' },
+                    'avocado': { name: 'Avocado', serving: '1 medium (200g)', calories: 322, protein: '4g', carbs: '17g', fat: '29g' },
+                    'orange': { name: 'Orange', serving: '1 medium (131g)', calories: 62, protein: '1.2g', carbs: '15g', fat: '0.2g' },
+                    'strawberry': { name: 'Strawberries', serving: '1 cup (152g)', calories: 49, protein: '1g', carbs: '12g', fat: '0.5g' },
+                    'strawberries': { name: 'Strawberries', serving: '1 cup (152g)', calories: 49, protein: '1g', carbs: '12g', fat: '0.5g' },
+                    'blueberry': { name: 'Blueberries', serving: '1 cup (148g)', calories: 84, protein: '1.1g', carbs: '21g', fat: '0.5g' },
+                    'blueberries': { name: 'Blueberries', serving: '1 cup (148g)', calories: 84, protein: '1.1g', carbs: '21g', fat: '0.5g' },
+                    'spinach': { name: 'Spinach', serving: '1 cup raw (30g)', calories: 7, protein: '0.9g', carbs: '1.1g', fat: '0.1g' },
+                    'carrot': { name: 'Carrot', serving: '1 medium (61g)', calories: 25, protein: '0.6g', carbs: '6g', fat: '0.1g' },
+                    'tomato': { name: 'Tomato', serving: '1 medium (123g)', calories: 22, protein: '1.1g', carbs: '4.8g', fat: '0.2g' },
+                    'cucumber': { name: 'Cucumber', serving: '1 cup sliced (119g)', calories: 16, protein: '0.8g', carbs: '3.6g', fat: '0.1g' },
+                    'pizza': { name: 'Pizza (cheese)', serving: '1 slice (107g)', calories: 272, protein: '12g', carbs: '34g', fat: '10g' },
+                    'burger': { name: 'Hamburger', serving: '1 burger (110g)', calories: 295, protein: '17g', carbs: '30g', fat: '12g' },
+                    'chocolate': { name: 'Chocolate (dark)', serving: '1 oz (28g)', calories: 155, protein: '1.4g', carbs: '13g', fat: '11g' }
+                };
+
+                setTimeout(() => {
+                    const lowerFood = food.toLowerCase().trim();
+                    const nutrition = nutritionDB[lowerFood];
+
+                    if (nutrition) {
+                        setResult(nutrition);
+                    } else {
+                        setError(`Couldn't find "${food}". Try: apple, banana, chicken, rice, egg, salmon, broccoli, or other common foods.`);
+                    }
+                    setLoading(false);
+                }, 500);
             };
 
             return (
@@ -1376,23 +1405,46 @@ If not found: {"error":"Not found"}`
                 setInput('');
                 setTyping(true);
 
-                try {
-                    const res = await fetch("https://api.anthropic.com/v1/messages", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            model: "claude-sonnet-4-20250514",
-                            max_tokens: 1000,
-                            messages: [{ role: "user", content: `Health assistant answer: ${text}` }]
-                        })
-                    });
-                    const data = await res.json();
-                    const reply = data.content.find(i => i.type === 'text')?.text || "I'm here to help!";
-                    setMessages(m => [...m, { text: reply, type: 'bot' }]);
-                } catch {
-                    setMessages(m => [...m, { text: "Error. Try again!", type: 'bot' }]);
+                // Built-in health knowledge base
+                const healthAnswers = {
+                    'benefits of running': 'Running offers numerous benefits: improves cardiovascular health, strengthens bones and muscles, helps with weight management, reduces stress, boosts mood through endorphin release, improves sleep quality, and increases longevity. Start slow and build up gradually!',
+                    'best protein sources': 'Great protein sources include: Lean meats (chicken, turkey), fish (salmon, tuna), eggs, Greek yogurt, cottage cheese, legumes (lentils, chickpeas, black beans), tofu, tempeh, nuts and seeds, quinoa, and protein powder. Aim for 0.8-1g of protein per kg of body weight daily.',
+                    'reduce stress': 'Effective stress reduction methods: Practice deep breathing exercises, try meditation or mindfulness, exercise regularly, get adequate sleep (7-9 hours), maintain social connections, limit caffeine, practice time management, engage in hobbies, spend time in nature, and consider yoga or tai chi.',
+                    'water intake': 'The general recommendation is 8 glasses (64 ounces or 2 liters) of water daily. However, needs vary based on: activity level, climate, body size, and overall health. A good indicator: your urine should be pale yellow. Drink more during exercise and hot weather!',
+                    'sleep': 'Adults need 7-9 hours of quality sleep per night. Good sleep hygiene: maintain consistent sleep schedule, create dark/cool bedroom environment, avoid screens 1 hour before bed, limit caffeine after 2pm, exercise regularly (but not right before bed), and establish relaxing bedtime routine.',
+                    'exercise': 'Adults should get at least 150 minutes of moderate aerobic activity or 75 minutes of vigorous activity per week, plus strength training 2+ days/week. Mix cardio, strength training, and flexibility work. Find activities you enjoy to stay consistent!',
+                    'nutrition': 'Balanced nutrition includes: 50% of plate as fruits/vegetables, 25% whole grains, 25% lean protein, healthy fats in moderation. Eat variety of colorful foods, limit processed foods and added sugars, stay hydrated, and practice portion control.',
+                    'weight loss': 'Healthy weight loss: Create modest calorie deficit (500 calories/day = 1lb/week loss), eat whole foods, increase protein intake, strength train to preserve muscle, do cardio, get enough sleep, manage stress, stay hydrated, and be patient - sustainable loss is 1-2 lbs/week.',
+                    'muscle building': 'To build muscle: Eat sufficient protein (1.6-2.2g per kg body weight), progressive resistance training 3-5x/week, get 7-9 hours sleep, stay in slight calorie surplus, focus on compound movements (squats, deadlifts, bench press), and be consistent for 8-12 weeks to see results.',
+                    'yoga': 'Yoga benefits: Improves flexibility, builds strength, enhances balance, reduces stress, improves breathing, boosts mental clarity, helps with pain management, and promotes better sleep. Great for all fitness levels. Start with beginner classes or videos!',
+                    'hydration': 'Proper hydration is crucial for: regulating body temperature, transporting nutrients, removing waste, cushioning joints, protecting organs, and maintaining energy. Signs of dehydration: dark urine, fatigue, headache, dizziness. Drink water regularly throughout the day.',
+                    'diet': 'Healthy eating principles: Eat whole, unprocessed foods, plenty of vegetables and fruits, whole grains, lean proteins, healthy fats (avocado, nuts, olive oil), limit added sugars and salt, practice portion control, eat mindfully, and allow occasional treats for balance.',
+                    'cardio': 'Cardio benefits: Strengthens heart and lungs, burns calories, improves endurance, reduces disease risk, boosts mood, and improves sleep. Options: running, cycling, swimming, dancing, hiking. Aim for 150+ minutes moderate intensity weekly.',
+                    'stretching': 'Stretching benefits: Increases flexibility, improves range of motion, enhances athletic performance, reduces injury risk, improves posture, relieves stress, and increases blood flow. Stretch after warming up, hold 15-30 seconds, and never bounce.',
+                    'calories': 'Calorie needs vary by age, sex, size, and activity level. Average adult needs 2000-2500 calories daily. To lose weight: create 500 calorie deficit. To gain muscle: slight surplus. Focus on nutrient-dense foods rather than just counting calories.',
+                    'posture': 'Good posture tips: Keep ears aligned over shoulders, shoulders back and down, engage core, feet flat on floor when sitting, take breaks every 30 min, adjust screen to eye level, strengthen back and core muscles, and be mindful throughout day.'
+                };
+
+                // Find matching answer
+                const lowerText = text.toLowerCase();
+                let response = null;
+                
+                for (const [key, answer] of Object.entries(healthAnswers)) {
+                    if (lowerText.includes(key) || key.includes(lowerText.split(' ')[0])) {
+                        response = answer;
+                        break;
+                    }
                 }
-                setTyping(false);
+
+                if (!response) {
+                    // Default helpful response
+                    response = "I'm a health assistant that can help with questions about: exercise, nutrition, sleep, hydration, weight loss, muscle building, yoga, stress reduction, and general wellness. Try asking about any of these topics!";
+                }
+
+                setTimeout(() => {
+                    setMessages(m => [...m, { text: response, type: 'bot' }]);
+                    setTyping(false);
+                }, 800);
             };
 
             return (
