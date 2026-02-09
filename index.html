@@ -840,7 +840,10 @@
                                 <div className="logo">FitLife</div>
                                 <ul className="nav">
                                     <li><a onClick={() => scrollTo('awareness')}>Health Tips</a></li>
+                                    <li><a onClick={() => scrollTo('videos')}>Videos</a></li>
+                                    <li><a onClick={() => scrollTo('exercises')}>Exercises</a></li>
                                     <li><a onClick={() => scrollTo('games')}>Games</a></li>
+                                    <li><a onClick={() => scrollTo('challenge')}>5-Day Challenge</a></li>
                                     <li><a onClick={() => scrollTo('tools')}>Tools</a></li>
                                 </ul>
                             </div>
@@ -858,11 +861,15 @@
                     </div>
 
                     <AwarenessSection />
+                    <VideosSection />
+                    <ExercisesSection />
                     <GamesSection />
+                    <FitnessChallenge5Day />
                     <ToolsSection />
 
                     <footer className="footer">
                         <div className="container">
+                            <p> MADE BY AAYUSH, ADITYA, DEV, SOURAV & ROHAN </P>
                             <p>© 2026 FitLife - Your Health Awareness Platform</p>
                         </div>
                     </footer>
@@ -872,6 +879,312 @@
 
         function scrollTo(id) {
             document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function VideosSection() {
+            const [selectedCategory, setSelectedCategory] = useState('all');
+
+            const videos = [
+                { id: 'qX9FSZJu448', title: 'Full Body Workout at Home', category: 'strength', duration: '15 min' },
+                { id: '3sEeVJEXTfY', title: '20 Min HIIT Cardio Workout', category: 'cardio', duration: '20 min' },
+                { id: 'COp7BR_Dvps', title: 'Yoga for Beginners', category: 'yoga', duration: '25 min' },
+                { id: 'g_tea8ZNk5A', title: 'Morning Stretching Routine', category: 'stretching', duration: '10 min' },
+                { id: 'ml6cT4AZdqI', title: 'Abs Workout - 10 Minutes', category: 'strength', duration: '10 min' },
+                { id: 'UBMk30rjy0o', title: 'Cardio Dance Workout', category: 'cardio', duration: '30 min' },
+                { id: 'v7AYKMP6rOE', title: 'Yoga for Flexibility', category: 'yoga', duration: '20 min' },
+                { id: 'sTANio_2E0Q', title: 'Full Body Stretching', category: 'stretching', duration: '15 min' },
+            ];
+
+            const categories = [
+                { id: 'all', name: 'All Videos', icon: '🎥' },
+                { id: 'strength', name: 'Strength', icon: '💪' },
+                { id: 'cardio', name: 'Cardio', icon: '🏃' },
+                { id: 'yoga', name: 'Yoga', icon: '🧘' },
+                { id: 'stretching', name: 'Stretching', icon: '🤸' }
+            ];
+
+            const filteredVideos = selectedCategory === 'all' 
+                ? videos 
+                : videos.filter(v => v.category === selectedCategory);
+
+            return (
+                <section id="videos" className="section" style={{background: 'white'}}>
+                    <div className="container">
+                        <div className="section-header">
+                            <h2 className="section-title">Fitness Video Tutorials</h2>
+                            <p className="section-subtitle">Follow along with expert-guided workout videos</p>
+                        </div>
+
+                        <div style={{
+                            display: 'flex',
+                            gap: '1rem',
+                            justifyContent: 'center',
+                            marginBottom: '3rem',
+                            flexWrap: 'wrap'
+                        }}>
+                            {categories.map(cat => (
+                                <button
+                                    key={cat.id}
+                                    onClick={() => setSelectedCategory(cat.id)}
+                                    style={{
+                                        padding: '0.75rem 1.5rem',
+                                        background: selectedCategory === cat.id ? 'linear-gradient(135deg, #6366f1, #ec4899)' : 'var(--bg)',
+                                        color: selectedCategory === cat.id ? 'white' : 'var(--text)',
+                                        border: selectedCategory === cat.id ? 'none' : '2px solid var(--border)',
+                                        borderRadius: '25px',
+                                        cursor: 'pointer',
+                                        fontWeight: '600',
+                                        fontFamily: 'Plus Jakarta Sans, sans-serif',
+                                        transition: 'all 0.3s',
+                                        fontSize: '0.95rem'
+                                    }}
+                                    onMouseOver={(e) => {
+                                        if (selectedCategory !== cat.id) {
+                                            e.currentTarget.style.borderColor = '#6366f1';
+                                            e.currentTarget.style.transform = 'translateY(-2px)';
+                                        }
+                                    }}
+                                    onMouseOut={(e) => {
+                                        if (selectedCategory !== cat.id) {
+                                            e.currentTarget.style.borderColor = 'var(--border)';
+                                            e.currentTarget.style.transform = 'translateY(0)';
+                                        }
+                                    }}
+                                >
+                                    {cat.icon} {cat.name}
+                                </button>
+                            ))}
+                        </div>
+
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                            gap: '2rem'
+                        }}>
+                            {filteredVideos.map((video, idx) => (
+                                <div key={idx} style={{
+                                    background: 'var(--card-bg)',
+                                    borderRadius: '16px',
+                                    overflow: 'hidden',
+                                    border: '1px solid var(--border)',
+                                    transition: 'transform 0.3s, box-shadow 0.3s'
+                                }}
+                                onMouseOver={(e) => {
+                                    e.currentTarget.style.transform = 'translateY(-5px)';
+                                    e.currentTarget.style.boxShadow = '0 10px 30px rgba(99, 102, 241, 0.2)';
+                                }}
+                                onMouseOut={(e) => {
+                                    e.currentTarget.style.transform = 'translateY(0)';
+                                    e.currentTarget.style.boxShadow = 'none';
+                                }}>
+                                    <div style={{position: 'relative', paddingBottom: '56.25%', height: 0}}>
+                                        <iframe
+                                            style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}}
+                                            src={`https://www.youtube.com/embed/${video.id}`}
+                                            frameBorder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowFullScreen
+                                        ></iframe>
+                                    </div>
+                                    <div style={{padding: '1.25rem'}}>
+                                        <h4 style={{color: 'var(--text)', fontSize: '1.1rem', marginBottom: '0.5rem', fontWeight: '600'}}>
+                                            {video.title}
+                                        </h4>
+                                        <div style={{
+                                            display: 'inline-block',
+                                            padding: '0.35rem 0.75rem',
+                                            background: 'rgba(99, 102, 241, 0.1)',
+                                            color: '#6366f1',
+                                            borderRadius: '12px',
+                                            fontSize: '0.85rem',
+                                            fontWeight: '600'
+                                        }}>
+                                            ⏱️ {video.duration}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        function ExercisesSection() {
+            const [selectedBodyPart, setSelectedBodyPart] = useState('chest');
+
+            const exercises = {
+                chest: [
+                    { name: 'Push-ups', sets: '3-4', reps: '10-15', desc: 'Classic bodyweight exercise for chest, shoulders, and triceps' },
+                    { name: 'Dumbbell Bench Press', sets: '3-4', reps: '8-12', desc: 'Great for building chest mass and strength' },
+                    { name: 'Dumbbell Flyes', sets: '3', reps: '10-12', desc: 'Isolates chest muscles for better definition' },
+                    { name: 'Incline Push-ups', sets: '3', reps: '12-15', desc: 'Targets upper chest, easier variation' }
+                ],
+                back: [
+                    { name: 'Pull-ups', sets: '3-4', reps: '6-10', desc: 'King of back exercises, builds width and strength' },
+                    { name: 'Dumbbell Rows', sets: '3-4', reps: '10-12', desc: 'Excellent for back thickness and strength' },
+                    { name: 'Superman Exercise', sets: '3', reps: '15-20', desc: 'Strengthens lower back without equipment' },
+                    { name: 'Lat Pulldown', sets: '3', reps: '10-12', desc: 'Machine exercise for lat development' }
+                ],
+                biceps: [
+                    { name: 'Dumbbell Curls', sets: '3-4', reps: '10-12', desc: 'Classic bicep builder, focus on form' },
+                    { name: 'Hammer Curls', sets: '3', reps: '10-12', desc: 'Targets brachialis for thicker arms' },
+                    { name: 'Concentration Curls', sets: '3', reps: '10-12', desc: 'Great for bicep peak development' },
+                    { name: 'Chin-ups', sets: '3', reps: '6-10', desc: 'Bodyweight exercise for biceps and back' }
+                ],
+                triceps: [
+                    { name: 'Diamond Push-ups', sets: '3-4', reps: '10-15', desc: 'Bodyweight tricep exercise, very effective' },
+                    { name: 'Tricep Dips', sets: '3-4', reps: '10-15', desc: 'Use parallel bars or bench' },
+                    { name: 'Overhead Extension', sets: '3', reps: '10-12', desc: 'Stretches and works long head of triceps' },
+                    { name: 'Kickbacks', sets: '3', reps: '12-15', desc: 'Isolation exercise for tricep definition' }
+                ],
+                shoulders: [
+                    { name: 'Shoulder Press', sets: '3-4', reps: '8-12', desc: 'Compound exercise for all deltoid heads' },
+                    { name: 'Lateral Raises', sets: '3-4', reps: '12-15', desc: 'Builds shoulder width, focus on side delts' },
+                    { name: 'Front Raises', sets: '3', reps: '12-15', desc: 'Targets front deltoids' },
+                    { name: 'Pike Push-ups', sets: '3', reps: '10-12', desc: 'Bodyweight shoulder exercise' }
+                ],
+                legs: [
+                    { name: 'Squats', sets: '4', reps: '10-15', desc: 'King of leg exercises, works entire lower body' },
+                    { name: 'Lunges', sets: '3', reps: '12-15 each', desc: 'Great for quads, glutes, and balance' },
+                    { name: 'Bulgarian Split Squat', sets: '3', reps: '10-12 each', desc: 'Advanced single-leg exercise' },
+                    { name: 'Calf Raises', sets: '4', reps: '15-20', desc: 'Isolates calf muscles' }
+                ],
+                abs: [
+                    { name: 'Crunches', sets: '3-4', reps: '15-20', desc: 'Classic ab exercise for upper abs' },
+                    { name: 'Plank', sets: '3', reps: '30-60 sec', desc: 'Isometric core strengthener' },
+                    { name: 'Bicycle Crunches', sets: '3', reps: '15-20', desc: 'Works entire core with rotation' },
+                    { name: 'Leg Raises', sets: '3', reps: '12-15', desc: 'Targets lower abs effectively' }
+                ]
+            };
+
+            const bodyParts = [
+                { id: 'chest', name: 'Chest', icon: '💪' },
+                { id: 'back', name: 'Back', icon: '🏋️' },
+                { id: 'biceps', name: 'Biceps', icon: '💪' },
+                { id: 'triceps', name: 'Triceps', icon: '🔱' },
+                { id: 'shoulders', name: 'Shoulders', icon: '🦾' },
+                { id: 'legs', name: 'Legs', icon: '🦵' },
+                { id: 'abs', name: 'Abs', icon: '🎯' }
+            ];
+
+            return (
+                <section id="exercises" className="section">
+                    <div className="container">
+                        <div className="section-header">
+                            <h2 className="section-title">Exercise Library</h2>
+                            <p className="section-subtitle">Comprehensive guide for all muscle groups</p>
+                        </div>
+
+                        <div style={{
+                            display: 'flex',
+                            gap: '1rem',
+                            justifyContent: 'center',
+                            marginBottom: '3rem',
+                            flexWrap: 'wrap'
+                        }}>
+                            {bodyParts.map(part => (
+                                <button
+                                    key={part.id}
+                                    onClick={() => setSelectedBodyPart(part.id)}
+                                    style={{
+                                        padding: '0.75rem 1.5rem',
+                                        background: selectedBodyPart === part.id ? 'linear-gradient(135deg, #6366f1, #ec4899)' : 'var(--card-bg)',
+                                        color: selectedBodyPart === part.id ? 'white' : 'var(--text)',
+                                        border: selectedBodyPart === part.id ? 'none' : '2px solid var(--border)',
+                                        borderRadius: '25px',
+                                        cursor: 'pointer',
+                                        fontWeight: '600',
+                                        fontFamily: 'Plus Jakarta Sans, sans-serif',
+                                        transition: 'all 0.3s',
+                                        fontSize: '0.95rem'
+                                    }}
+                                    onMouseOver={(e) => {
+                                        if (selectedBodyPart !== part.id) {
+                                            e.currentTarget.style.borderColor = '#6366f1';
+                                            e.currentTarget.style.transform = 'translateY(-2px)';
+                                        }
+                                    }}
+                                    onMouseOut={(e) => {
+                                        if (selectedBodyPart !== part.id) {
+                                            e.currentTarget.style.borderColor = 'var(--border)';
+                                            e.currentTarget.style.transform = 'translateY(0)';
+                                        }
+                                    }}
+                                >
+                                    {part.icon} {part.name}
+                                </button>
+                            ))}
+                        </div>
+
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                            gap: '1.5rem'
+                        }}>
+                            {exercises[selectedBodyPart].map((exercise, idx) => (
+                                <div key={idx} style={{
+                                    background: 'var(--card-bg)',
+                                    padding: '1.75rem',
+                                    borderRadius: '16px',
+                                    border: '1px solid var(--border)',
+                                    transition: 'all 0.3s'
+                                }}
+                                onMouseOver={(e) => {
+                                    e.currentTarget.style.transform = 'translateY(-5px)';
+                                    e.currentTarget.style.borderColor = '#6366f1';
+                                }}
+                                onMouseOut={(e) => {
+                                    e.currentTarget.style.transform = 'translateY(0)';
+                                    e.currentTarget.style.borderColor = 'var(--border)';
+                                }}>
+                                    <h4 style={{
+                                        color: 'var(--text)',
+                                        fontSize: '1.25rem',
+                                        marginBottom: '0.75rem',
+                                        fontWeight: '700'
+                                    }}>
+                                        {exercise.name}
+                                    </h4>
+                                    <div style={{
+                                        display: 'flex',
+                                        gap: '1rem',
+                                        marginBottom: '1rem'
+                                    }}>
+                                        <div style={{
+                                            padding: '0.5rem 1rem',
+                                            background: 'rgba(99, 102, 241, 0.1)',
+                                            borderRadius: '8px',
+                                            fontSize: '0.9rem',
+                                            fontWeight: '600',
+                                            color: '#6366f1'
+                                        }}>
+                                            Sets: {exercise.sets}
+                                        </div>
+                                        <div style={{
+                                            padding: '0.5rem 1rem',
+                                            background: 'rgba(16, 185, 129, 0.1)',
+                                            borderRadius: '8px',
+                                            fontSize: '0.9rem',
+                                            fontWeight: '600',
+                                            color: '#10b981'
+                                        }}>
+                                            Reps: {exercise.reps}
+                                        </div>
+                                    </div>
+                                    <p style={{
+                                        color: 'var(--text-dim)',
+                                        fontSize: '0.95rem',
+                                        lineHeight: '1.6'
+                                    }}>
+                                        {exercise.desc}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
         }
 
         function AwarenessSection() {
@@ -1919,6 +2232,369 @@
                         </div>
                     )}
                 </div>
+            );
+        }
+
+        function FitnessChallenge5Day() {
+            const [userName, setUserName] = useState('');
+            const [started, setStarted] = useState(false);
+            const [completed, setCompleted] = useState({
+                day1: false,
+                day2: false,
+                day3: false,
+                day4: false,
+                day5: false
+            });
+            const [showCertificate, setShowCertificate] = useState(false);
+
+            const challenges = [
+                { id: 'day1', day: 'Day 1', task: '30 Minutes Walking/Jogging', icon: '🏃', color: '#6366f1' },
+                { id: 'day2', day: 'Day 2', task: '20 Push-ups + 30 Squats', icon: '💪', color: '#ec4899' },
+                { id: 'day3', day: 'Day 3', task: '15 Minutes Yoga/Stretching', icon: '🧘', color: '#10b981' },
+                { id: 'day4', day: 'Day 4', task: 'Drink 3 Liters Water', icon: '💧', color: '#f59e0b' },
+                { id: 'day5', day: 'Day 5', task: '10,000 Steps + Healthy Meals', icon: '🥗', color: '#8b5cf6' }
+            ];
+
+            const completedCount = Object.values(completed).filter(Boolean).length;
+            const allCompleted = completedCount === 5;
+
+            const toggleChallenge = (id) => {
+                setCompleted({ ...completed, [id]: !completed[id] });
+            };
+
+            const generateCertificate = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = 1200;
+                canvas.height = 850;
+                const ctx = canvas.getContext('2d');
+
+                // Background gradient
+                const gradient = ctx.createLinearGradient(0, 0, 1200, 850);
+                gradient.addColorStop(0, '#6366f1');
+                gradient.addColorStop(1, '#ec4899');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, 1200, 850);
+
+                // White certificate box
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(60, 60, 1080, 730);
+
+                // Border
+                ctx.strokeStyle = '#6366f1';
+                ctx.lineWidth = 8;
+                ctx.strokeRect(80, 80, 1040, 690);
+
+                // Inner border
+                ctx.strokeStyle = '#ec4899';
+                ctx.lineWidth = 3;
+                ctx.strokeRect(100, 100, 1000, 650);
+
+                // Title
+                ctx.fillStyle = '#1e293b';
+                ctx.font = 'bold 70px Plus Jakarta Sans, Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('CERTIFICATE', 600, 200);
+                
+                ctx.font = 'bold 45px Plus Jakarta Sans, Arial';
+                ctx.fillText('OF ACHIEVEMENT', 600, 260);
+
+                // Decorative line
+                ctx.strokeStyle = '#6366f1';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(350, 290);
+                ctx.lineTo(850, 290);
+                ctx.stroke();
+
+                // Body text
+                ctx.fillStyle = '#64748b';
+                ctx.font = '28px Plus Jakarta Sans, Arial';
+                ctx.fillText('This is to certify that', 600, 360);
+
+                // User name
+                ctx.fillStyle = '#1e293b';
+                ctx.font = 'bold 55px Plus Jakarta Sans, Arial';
+                ctx.fillText(userName || 'Champion', 600, 440);
+
+                // Achievement text
+                ctx.fillStyle = '#64748b';
+                ctx.font = '28px Plus Jakarta Sans, Arial';
+                ctx.fillText('has successfully completed the', 600, 510);
+                
+                ctx.fillStyle = '#6366f1';
+                ctx.font = 'bold 35px Plus Jakarta Sans, Arial';
+                ctx.fillText('5-DAY FITNESS CHALLENGE', 600, 565);
+
+                // Date
+                ctx.fillStyle = '#64748b';
+                ctx.font = '24px Plus Jakarta Sans, Arial';
+                const today = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+                ctx.fillText(`Awarded on ${today}`, 600, 630);
+
+                // Issuer
+                ctx.fillStyle = '#1e293b';
+                ctx.font = 'bold 40px Plus Jakarta Sans, Arial';
+                ctx.fillText('FITLIFE', 600, 710);
+                
+                ctx.fillStyle = '#64748b';
+                ctx.font = '20px Plus Jakarta Sans, Arial';
+                ctx.fillText('Health & Wellness Platform', 600, 740);
+
+                // Download
+                const link = document.createElement('a');
+                link.download = `FitLife_Certificate_${userName.replace(/\s+/g, '_')}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            };
+
+            if (showCertificate && allCompleted) {
+                return (
+                    <section id="challenge" className="section" style={{background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1))'}}>
+                        <div className="container">
+                            <div style={{maxWidth: '800px', margin: '0 auto'}}>
+                                <div className="game-card">
+                                    <div className="score-display">
+                                        <div className="score-emoji">🏆</div>
+                                        <h2 style={{fontSize: '2.5rem', marginBottom: '1rem'}}>Congratulations!</h2>
+                                        <p style={{color: 'var(--text-dim)', fontSize: '1.3rem', marginBottom: '2rem'}}>
+                                            You've completed the 5-Day Fitness Challenge!
+                                        </p>
+                                        
+                                        <div style={{
+                                            background: 'linear-gradient(135deg, #6366f1, #ec4899)',
+                                            padding: '3rem',
+                                            borderRadius: '16px',
+                                            marginBottom: '2rem',
+                                            color: 'white'
+                                        }}>
+                                            <h3 style={{fontSize: '1.8rem', marginBottom: '1rem'}}>🎓 Your Certificate</h3>
+                                            <p style={{fontSize: '1.1rem', marginBottom: '1.5rem', opacity: 0.9}}>
+                                                Click below to download your achievement certificate
+                                            </p>
+                                            <div style={{
+                                                background: 'white',
+                                                color: '#1e293b',
+                                                padding: '1.5rem',
+                                                borderRadius: '12px',
+                                                marginBottom: '1.5rem'
+                                            }}>
+                                                <p style={{fontSize: '1rem', marginBottom: '0.5rem'}}>Certificate for:</p>
+                                                <p style={{fontSize: '1.8rem', fontWeight: '700'}}>{userName}</p>
+                                                <p style={{fontSize: '0.9rem', marginTop: '0.5rem', opacity: 0.7}}>Issued by: FitLife</p>
+                                            </div>
+                                            <button 
+                                                className="btn"
+                                                style={{background: 'white', color: '#6366f1'}}
+                                                onClick={generateCertificate}
+                                            >
+                                                📥 Download Certificate
+                                            </button>
+                                        </div>
+
+                                        <button 
+                                            className="btn btn-secondary"
+                                            onClick={() => {
+                                                setShowCertificate(false);
+                                                setStarted(false);
+                                                setCompleted({ day1: false, day2: false, day3: false, day4: false, day5: false });
+                                                setUserName('');
+                                            }}
+                                        >
+                                            Start New Challenge
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                );
+            }
+
+            if (!started) {
+                return (
+                    <section id="challenge" className="section" style={{background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1))'}}>
+                        <div className="container">
+                            <div className="section-header">
+                                <h2 className="section-title">5-Day Fitness Challenge</h2>
+                                <p className="section-subtitle">Complete all activities and earn your certificate!</p>
+                            </div>
+
+                            <div style={{maxWidth: '600px', margin: '0 auto'}}>
+                                <div className="game-card">
+                                    <div style={{textAlign: 'center', padding: '2rem'}}>
+                                        <div style={{fontSize: '5rem', marginBottom: '1.5rem'}}>🎯</div>
+                                        <h3 style={{fontSize: '2rem', marginBottom: '1rem', color: 'var(--text)'}}>
+                                            Ready for the Challenge?
+                                        </h3>
+                                        <p style={{color: 'var(--text-dim)', fontSize: '1.1rem', marginBottom: '2rem', lineHeight: '1.7'}}>
+                                            Complete 5 daily fitness activities and receive a personalized certificate from FitLife!
+                                        </p>
+
+                                        <div style={{
+                                            background: 'var(--bg)',
+                                            padding: '2rem',
+                                            borderRadius: '12px',
+                                            marginBottom: '2rem',
+                                            textAlign: 'left'
+                                        }}>
+                                            <h4 style={{color: 'var(--text)', marginBottom: '1rem', fontSize: '1.2rem'}}>
+                                                Challenge Activities:
+                                            </h4>
+                                            {challenges.map(ch => (
+                                                <div key={ch.id} style={{
+                                                    padding: '0.75rem',
+                                                    marginBottom: '0.5rem',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '1rem'
+                                                }}>
+                                                    <span style={{fontSize: '1.5rem'}}>{ch.icon}</span>
+                                                    <div>
+                                                        <strong style={{color: 'var(--text)'}}>{ch.day}:</strong>
+                                                        <span style={{color: 'var(--text-dim)', marginLeft: '0.5rem'}}>
+                                                            {ch.task}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        <input
+                                            type="text"
+                                            placeholder="Enter your name for certificate"
+                                            value={userName}
+                                            onChange={(e) => setUserName(e.target.value)}
+                                            style={{
+                                                width: '100%',
+                                                padding: '1rem 1.5rem',
+                                                border: '2px solid var(--border)',
+                                                borderRadius: '12px',
+                                                fontSize: '1.1rem',
+                                                marginBottom: '1.5rem',
+                                                fontFamily: 'Plus Jakarta Sans, sans-serif',
+                                                background: 'var(--bg)',
+                                                color: 'var(--text)'
+                                            }}
+                                        />
+
+                                        <button
+                                            className="btn"
+                                            onClick={() => userName.trim() && setStarted(true)}
+                                            disabled={!userName.trim()}
+                                        >
+                                            Start Challenge 🚀
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                );
+            }
+
+            return (
+                <section id="challenge" className="section" style={{background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1))'}}>
+                    <div className="container">
+                        <div className="section-header">
+                            <h2 className="section-title">5-Day Fitness Challenge</h2>
+                            <p className="section-subtitle">Track your progress and complete all activities!</p>
+                        </div>
+
+                        <div style={{maxWidth: '700px', margin: '0 auto'}}>
+                            <div className="game-card">
+                                <div style={{marginBottom: '2rem'}}>
+                                    <div style={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        marginBottom: '1rem'
+                                    }}>
+                                        <h3 style={{color: 'var(--text)', fontSize: '1.5rem'}}>
+                                            Welcome, {userName}! 👋
+                                        </h3>
+                                        <div style={{
+                                            padding: '0.5rem 1rem',
+                                            background: 'linear-gradient(135deg, #6366f1, #ec4899)',
+                                            borderRadius: '20px',
+                                            color: 'white',
+                                            fontWeight: '700'
+                                        }}>
+                                            {completedCount}/5 Completed
+                                        </div>
+                                    </div>
+                                    <div className="progress-bar">
+                                        <div className="progress-fill" style={{width: `${(completedCount / 5) * 100}%`}}></div>
+                                    </div>
+                                </div>
+
+                                <div style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+                                    {challenges.map(challenge => (
+                                        <div
+                                            key={challenge.id}
+                                            style={{
+                                                background: completed[challenge.id] ? 'rgba(16, 185, 129, 0.1)' : 'var(--bg)',
+                                                border: `2px solid ${completed[challenge.id] ? '#10b981' : 'var(--border)'}`,
+                                                borderRadius: '12px',
+                                                padding: '1.5rem',
+                                                cursor: 'pointer',
+                                                transition: 'all 0.3s'
+                                            }}
+                                            onClick={() => toggleChallenge(challenge.id)}
+                                        >
+                                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                                                <div style={{display: 'flex', alignItems: 'center', gap: '1rem'}}>
+                                                    <div style={{
+                                                        fontSize: '2.5rem',
+                                                        opacity: completed[challenge.id] ? 1 : 0.5
+                                                    }}>
+                                                        {challenge.icon}
+                                                    </div>
+                                                    <div>
+                                                        <h4 style={{
+                                                            color: 'var(--text)',
+                                                            fontSize: '1.2rem',
+                                                            marginBottom: '0.25rem',
+                                                            fontWeight: '700'
+                                                        }}>
+                                                            {challenge.day}
+                                                        </h4>
+                                                        <p style={{color: 'var(--text-dim)', fontSize: '1rem'}}>
+                                                            {challenge.task}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div style={{
+                                                    width: '36px',
+                                                    height: '36px',
+                                                    borderRadius: '50%',
+                                                    background: completed[challenge.id] ? '#10b981' : 'transparent',
+                                                    border: `3px solid ${completed[challenge.id] ? '#10b981' : 'var(--border)'}`,
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    fontSize: '1.2rem',
+                                                    color: 'white'
+                                                }}>
+                                                    {completed[challenge.id] && '✓'}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {allCompleted && (
+                                    <button
+                                        className="btn"
+                                        style={{marginTop: '2rem', width: '100%'}}
+                                        onClick={() => setShowCertificate(true)}
+                                    >
+                                        🎓 Get Your Certificate!
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </section>
             );
         }
 
