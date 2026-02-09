@@ -1270,94 +1270,144 @@
 
             const foodPairs = [
                 { 
-                    foods: ['Apple', 'Donut'],
+                    foods: ['Paneer Tikka', 'Paneer Pakora'],
                     healthier: 0,
-                    reason: 'Apple is rich in fiber, vitamins, and antioxidants with only 95 calories. Donut is high in sugar and unhealthy fats with 192 calories.',
-                    cals: [95, 192]
+                    reason: 'Paneer tikka is grilled/baked with minimal oil and spices. Paneer pakora is deep-fried in batter, adding excess calories and unhealthy fats.',
+                    cals: [185, 320],
+                    emojis: ['🍢', '🍤']
                 },
                 { 
-                    foods: ['Grilled Chicken Breast', 'Fried Chicken'],
+                    foods: ['Brown Rice', 'Jeera Rice'],
                     healthier: 0,
-                    reason: 'Grilled chicken is lean protein (165 cal/100g, 31g protein). Fried chicken adds unhealthy fats and calories from deep frying.',
-                    cals: [165, 350]
+                    reason: 'Brown rice has more fiber, vitamins, and minerals with lower glycemic index. Jeera rice is white rice tempered with ghee/oil, adding calories and losing nutrients.',
+                    cals: [216, 220],
+                    emojis: ['🍚', '🍛']
                 },
                 { 
-                    foods: ['Brown Rice', 'White Rice'],
+                    foods: ['Moong Dal Cheela', 'Besan Cheela'],
                     healthier: 0,
-                    reason: 'Brown rice has more fiber, vitamins, and minerals. It has a lower glycemic index and keeps you fuller longer.',
-                    cals: [216, 205]
+                    reason: 'Moong dal cheela is lighter, easier to digest, and has complete protein. Both are healthy, but moong dal is more nutrient-dense and lower in calories.',
+                    cals: [120, 145],
+                    emojis: ['🥞', '🥞']
                 },
                 { 
-                    foods: ['Sweet Potato', 'French Fries'],
+                    foods: ['Sprouts Salad', 'Boiled Chana'],
                     healthier: 0,
-                    reason: 'Sweet potato (103 cal) is rich in vitamins A, C, fiber. Fries (365 cal) are deep-fried and high in unhealthy fats and sodium.',
-                    cals: [103, 365]
+                    reason: 'Sprouts have increased vitamins (especially C), better protein digestibility, and more enzymes. Boiled chana is good but sprouting enhances nutrition further.',
+                    cals: [85, 140],
+                    emojis: ['🥗', '🫘']
                 },
                 { 
-                    foods: ['Oatmeal', 'Sugary Cereal'],
+                    foods: ['Tandoori Roti', 'Butter Naan'],
                     healthier: 0,
-                    reason: 'Oatmeal (166 cal) provides complex carbs, fiber, and sustained energy. Sugary cereals spike blood sugar and lack nutrients.',
-                    cals: [166, 210]
+                    reason: 'Tandoori roti is whole wheat with no added fat. Butter naan is refined flour (maida) brushed with butter, higher in calories and lower in fiber.',
+                    cals: [100, 310],
+                    emojis: ['🫓', '🥖']
                 },
                 { 
-                    foods: ['Greek Yogurt', 'Ice Cream'],
+                    foods: ['Sambhar', 'Dal Makhani'],
                     healthier: 0,
-                    reason: 'Greek yogurt (100 cal, 17g protein) is high in protein and probiotics. Ice cream (137 cal) is high in sugar and saturated fat.',
-                    cals: [100, 137]
+                    reason: 'Sambhar is lighter with vegetables, tamarind, and minimal fat. Dal makhani has heavy cream, butter, making it much higher in calories and saturated fat.',
+                    cals: [145, 285],
+                    emojis: ['🍲', '🍛']
                 },
                 { 
-                    foods: ['Almonds', 'Potato Chips'],
+                    foods: ['Buttermilk (Chaas)', 'Sweet Lassi'],
                     healthier: 0,
-                    reason: 'Almonds provide healthy fats, protein, vitamin E, and fiber. Chips are high in unhealthy fats, sodium, and empty calories.',
-                    cals: [164, 152]
+                    reason: 'Buttermilk is low-calorie, probiotic-rich, aids digestion with minimal sugar. Sweet lassi has added sugar and more calories from full-fat yogurt.',
+                    cals: [62, 168],
+                    emojis: ['🥛', '🥤']
                 },
                 { 
-                    foods: ['Salmon', 'Burger'],
+                    foods: ['Grilled Fish', 'Fish Fry'],
                     healthier: 0,
-                    reason: 'Salmon (208 cal) is rich in omega-3 fatty acids and quality protein. Burgers often have unhealthy fats and processed ingredients.',
-                    cals: [208, 295]
+                    reason: 'Grilled fish retains omega-3s and protein without added fat. Fish fry absorbs oil during frying, adding calories and potentially harmful compounds from high heat.',
+                    cals: [206, 340],
+                    emojis: ['🐟', '🍤']
                 },
                 { 
-                    foods: ['Whole Wheat Bread', 'White Bread'],
+                    foods: ['Poha', 'Upma'],
                     healthier: 0,
-                    reason: 'Whole wheat bread has more fiber, B vitamins, and minerals. It provides sustained energy and better blood sugar control.',
-                    cals: [69, 67]
+                    reason: 'Both are healthy! Poha is lighter, easier to digest, and has iron. Upma is made from semolina with more fiber. Poha wins slightly for easier digestion.',
+                    cals: [180, 198],
+                    emojis: ['🍚', '🥣']
                 },
                 { 
-                    foods: ['Water', 'Soda'],
-                    healthier: 0,
-                    reason: 'Water (0 cal) is essential for hydration with no sugar. Soda (140 cal) has empty calories, sugar, and no nutritional value.',
-                    cals: [0, 140]
+                    foods: ['Fresh Fruit Juice', 'Whole Fruit'],
+                    healthier: 1,
+                    reason: 'Whole fruit has fiber that slows sugar absorption and keeps you fuller. Juice removes fiber, concentrates sugar, and spikes blood sugar quickly.',
+                    cals: [110, 95],
+                    emojis: ['🧃', '🍎']
                 },
                 { 
-                    foods: ['Grilled Vegetables', 'Pizza'],
+                    foods: ['Khichdi', 'Biryani'],
                     healthier: 0,
-                    reason: 'Grilled vegetables are low-calorie, nutrient-dense with vitamins and fiber. Pizza is high in calories, saturated fat, and sodium.',
-                    cals: [50, 272]
+                    reason: 'Khichdi is simple, easy to digest, balanced with dal and rice, minimal oil. Biryani has fried onions, ghee/oil, making it much higher in calories.',
+                    cals: [195, 375],
+                    emojis: ['🍚', '🍛']
                 },
                 { 
-                    foods: ['Banana', 'Cookie'],
+                    foods: ['Roasted Makhana', 'Namkeen/Mixture'],
                     healthier: 0,
-                    reason: 'Banana (105 cal) provides potassium, fiber, and natural sugars. Cookies (78 cal) have added sugar, unhealthy fats, and minimal nutrition.',
-                    cals: [105, 78]
+                    reason: 'Roasted makhana is low-calorie, high in protein and fiber. Namkeen is deep-fried, high in unhealthy fats, salt, and empty calories.',
+                    cals: [347, 520],
+                    emojis: ['🍿', '🥨']
                 },
                 { 
-                    foods: ['Chapati', 'Puri'],
+                    foods: ['Coconut Water', 'Packaged Fruit Drink'],
                     healthier: 0,
-                    reason: 'Chapati (104 cal) is whole wheat and nutritious. Puri (112 cal) is deep-fried, adding unhealthy fats and extra calories.',
-                    cals: [104, 112]
+                    reason: 'Coconut water is natural, has electrolytes, potassium, minimal calories. Packaged drinks have added sugar, preservatives, and artificial flavors.',
+                    cals: [46, 120],
+                    emojis: ['🥥', '🧃']
                 },
                 { 
-                    foods: ['Dal', 'Butter Chicken'],
+                    foods: ['Steamed Idli', 'Medu Vada'],
                     healthier: 0,
-                    reason: 'Dal (212 cal, 14g protein) is protein-rich with fiber and low fat. Butter chicken (438 cal) is high in cream, butter, and saturated fat.',
-                    cals: [212, 438]
+                    reason: 'Idli is steamed, fermented (probiotic-rich), low-fat, easy to digest. Vada is deep-fried, absorbing significant oil and calories.',
+                    cals: [78, 145],
+                    emojis: ['⚪', '🍩']
                 },
                 { 
-                    foods: ['Idli', 'Samosa'],
+                    foods: ['Vegetable Raita', 'Boondi Raita'],
                     healthier: 0,
-                    reason: 'Idli (156 cal for 2) is steamed, fermented, and probiotic-rich. Samosa (153 cal) is deep-fried with higher fat content.',
-                    cals: [156, 153]
+                    reason: 'Vegetable raita has fiber, vitamins from veggies, probiotics from yogurt. Boondi raita has deep-fried boondi adding unhealthy fats and calories.',
+                    cals: [85, 165],
+                    emojis: ['🥗', '🥙']
+                },
+                { 
+                    foods: ['Dry Fruit Ladoo', 'Besan Ladoo'],
+                    healthier: 0,
+                    reason: 'Dry fruit ladoo has nuts, dates with healthy fats, fiber, nutrients. Besan ladoo is made with ghee and sugar, higher in saturated fat.',
+                    cals: [145, 168],
+                    emojis: ['🌰', '🍪']
+                },
+                { 
+                    foods: ['Grilled Chicken Tikka', 'Butter Chicken'],
+                    healthier: 0,
+                    reason: 'Chicken tikka is marinated and grilled, lean protein. Butter chicken has heavy cream, butter, making it very high in calories and saturated fat.',
+                    cals: [220, 438],
+                    emojis: ['🍢', '🍛']
+                },
+                { 
+                    foods: ['Masala Chai (no sugar)', 'Packaged Cold Coffee'],
+                    healthier: 0,
+                    reason: 'Unsweetened masala chai has spices with health benefits, minimal calories. Packaged cold coffee has added sugar, cream, and preservatives.',
+                    cals: [30, 180],
+                    emojis: ['☕', '🥤']
+                },
+                { 
+                    foods: ['Baked Mathri', 'Fried Mathri'],
+                    healthier: 0,
+                    reason: 'Baked mathri uses minimal oil, lower calories. Fried mathri absorbs significant oil during deep frying, much higher in unhealthy fats.',
+                    cals: [85, 145],
+                    emojis: ['🥐', '🥨']
+                },
+                { 
+                    foods: ['Peanut Chikki', 'Chocolate Bar'],
+                    healthier: 0,
+                    reason: 'Peanut chikki has protein, healthy fats from peanuts despite jaggery. Chocolate bars have more processed sugar, less protein, and saturated fats.',
+                    cals: [450, 535],
+                    emojis: ['🥜', '🍫']
                 }
             ];
 
@@ -1384,7 +1434,7 @@
                     } else {
                         setGameOver(true);
                     }
-                }, 2500);
+                }, 3000);
             };
 
             const restart = () => {
@@ -1435,7 +1485,7 @@
             return (
                 <div className="game-card">
                     <div className="tool-header">
-                        <div className="tool-icon">🍎</div>
+                        <div className="tool-icon">🍽️</div>
                         <h3 className="tool-title">Healthy Food Challenge</h3>
                     </div>
                     
@@ -1516,7 +1566,7 @@
                                     }}
                                 >
                                     <div style={{fontSize: '3rem', marginBottom: '0.5rem'}}>
-                                        {index === 0 ? '🥗' : '🍔'}
+                                        {pair.emojis[index]}
                                     </div>
                                     <div style={{fontSize: '1.2rem', fontWeight: '700', color: 'var(--text)', marginBottom: '0.5rem'}}>
                                         {food}
