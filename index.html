@@ -863,7 +863,7 @@
 
                     <footer className="footer">
                         <div className="container">
-                            <p>© 2026 FitLife - Your Health Awareness Platform</p>
+                            <p>© 2024 FitLife - Your Health Awareness Platform</p>
                         </div>
                     </footer>
                 </>
@@ -1283,46 +1283,137 @@
                 setError(null);
                 setResult(null);
 
-                // Built-in nutrition database
+                // Comprehensive nutrition database (80+ foods)
                 const nutritionDB = {
+                    // Fruits
                     'apple': { name: 'Apple', serving: '1 medium (182g)', calories: 95, protein: '0.5g', carbs: '25g', fat: '0.3g' },
                     'banana': { name: 'Banana', serving: '1 medium (118g)', calories: 105, protein: '1.3g', carbs: '27g', fat: '0.4g' },
-                    'chicken breast': { name: 'Chicken Breast', serving: '100g', calories: 165, protein: '31g', carbs: '0g', fat: '3.6g' },
-                    'chicken': { name: 'Chicken Breast', serving: '100g', calories: 165, protein: '31g', carbs: '0g', fat: '3.6g' },
-                    'rice': { name: 'White Rice', serving: '1 cup cooked (158g)', calories: 205, protein: '4.3g', carbs: '45g', fat: '0.4g' },
-                    'brown rice': { name: 'Brown Rice', serving: '1 cup cooked (195g)', calories: 216, protein: '5g', carbs: '45g', fat: '1.8g' },
-                    'egg': { name: 'Egg', serving: '1 large (50g)', calories: 72, protein: '6g', carbs: '0.4g', fat: '5g' },
-                    'eggs': { name: 'Egg', serving: '1 large (50g)', calories: 72, protein: '6g', carbs: '0.4g', fat: '5g' },
-                    'broccoli': { name: 'Broccoli', serving: '1 cup chopped (91g)', calories: 31, protein: '2.5g', carbs: '6g', fat: '0.3g' },
-                    'salmon': { name: 'Salmon', serving: '100g', calories: 208, protein: '20g', carbs: '0g', fat: '13g' },
-                    'tuna': { name: 'Tuna', serving: '100g', calories: 132, protein: '28g', carbs: '0g', fat: '1.3g' },
-                    'bread': { name: 'Whole Wheat Bread', serving: '1 slice (28g)', calories: 69, protein: '3.6g', carbs: '12g', fat: '1g' },
-                    'milk': { name: 'Milk (2%)', serving: '1 cup (244g)', calories: 122, protein: '8g', carbs: '12g', fat: '4.8g' },
-                    'yogurt': { name: 'Greek Yogurt', serving: '1 cup (170g)', calories: 100, protein: '17g', carbs: '6g', fat: '0.7g' },
-                    'oats': { name: 'Oatmeal', serving: '1 cup cooked (234g)', calories: 166, protein: '5.9g', carbs: '28g', fat: '3.6g' },
-                    'oatmeal': { name: 'Oatmeal', serving: '1 cup cooked (234g)', calories: 166, protein: '5.9g', carbs: '28g', fat: '3.6g' },
-                    'pasta': { name: 'Pasta', serving: '1 cup cooked (140g)', calories: 220, protein: '8g', carbs: '43g', fat: '1.3g' },
-                    'potato': { name: 'Potato', serving: '1 medium (173g)', calories: 164, protein: '4.3g', carbs: '37g', fat: '0.2g' },
-                    'sweet potato': { name: 'Sweet Potato', serving: '1 medium (114g)', calories: 103, protein: '2.3g', carbs: '24g', fat: '0.2g' },
-                    'beef': { name: 'Beef (lean)', serving: '100g', calories: 250, protein: '26g', carbs: '0g', fat: '15g' },
-                    'pork': { name: 'Pork (lean)', serving: '100g', calories: 242, protein: '27g', carbs: '0g', fat: '14g' },
-                    'tofu': { name: 'Tofu', serving: '100g', calories: 76, protein: '8g', carbs: '1.9g', fat: '4.8g' },
-                    'cheese': { name: 'Cheddar Cheese', serving: '1 oz (28g)', calories: 114, protein: '7g', carbs: '0.4g', fat: '9g' },
-                    'almonds': { name: 'Almonds', serving: '1 oz (28g)', calories: 164, protein: '6g', carbs: '6g', fat: '14g' },
-                    'peanut butter': { name: 'Peanut Butter', serving: '2 tbsp (32g)', calories: 188, protein: '8g', carbs: '7g', fat: '16g' },
-                    'avocado': { name: 'Avocado', serving: '1 medium (200g)', calories: 322, protein: '4g', carbs: '17g', fat: '29g' },
                     'orange': { name: 'Orange', serving: '1 medium (131g)', calories: 62, protein: '1.2g', carbs: '15g', fat: '0.2g' },
                     'strawberry': { name: 'Strawberries', serving: '1 cup (152g)', calories: 49, protein: '1g', carbs: '12g', fat: '0.5g' },
                     'strawberries': { name: 'Strawberries', serving: '1 cup (152g)', calories: 49, protein: '1g', carbs: '12g', fat: '0.5g' },
                     'blueberry': { name: 'Blueberries', serving: '1 cup (148g)', calories: 84, protein: '1.1g', carbs: '21g', fat: '0.5g' },
                     'blueberries': { name: 'Blueberries', serving: '1 cup (148g)', calories: 84, protein: '1.1g', carbs: '21g', fat: '0.5g' },
+                    'grapes': { name: 'Grapes', serving: '1 cup (151g)', calories: 104, protein: '1.1g', carbs: '27g', fat: '0.2g' },
+                    'watermelon': { name: 'Watermelon', serving: '1 cup diced (152g)', calories: 46, protein: '0.9g', carbs: '12g', fat: '0.2g' },
+                    'mango': { name: 'Mango', serving: '1 cup (165g)', calories: 99, protein: '1.4g', carbs: '25g', fat: '0.6g' },
+                    'pineapple': { name: 'Pineapple', serving: '1 cup (165g)', calories: 82, protein: '0.9g', carbs: '22g', fat: '0.2g' },
+                    'peach': { name: 'Peach', serving: '1 medium (150g)', calories: 59, protein: '1.4g', carbs: '14g', fat: '0.4g' },
+                    'pear': { name: 'Pear', serving: '1 medium (178g)', calories: 101, protein: '0.6g', carbs: '27g', fat: '0.2g' },
+                    'kiwi': { name: 'Kiwi', serving: '1 medium (69g)', calories: 42, protein: '0.8g', carbs: '10g', fat: '0.4g' },
+                    
+                    // Proteins
+                    'chicken breast': { name: 'Chicken Breast', serving: '100g', calories: 165, protein: '31g', carbs: '0g', fat: '3.6g' },
+                    'chicken': { name: 'Chicken Breast', serving: '100g', calories: 165, protein: '31g', carbs: '0g', fat: '3.6g' },
+                    'chicken thigh': { name: 'Chicken Thigh', serving: '100g', calories: 209, protein: '26g', carbs: '0g', fat: '11g' },
+                    'turkey': { name: 'Turkey Breast', serving: '100g', calories: 135, protein: '30g', carbs: '0g', fat: '0.7g' },
+                    'salmon': { name: 'Salmon', serving: '100g', calories: 208, protein: '20g', carbs: '0g', fat: '13g' },
+                    'tuna': { name: 'Tuna', serving: '100g', calories: 132, protein: '28g', carbs: '0g', fat: '1.3g' },
+                    'tilapia': { name: 'Tilapia', serving: '100g', calories: 128, protein: '26g', carbs: '0g', fat: '2.7g' },
+                    'shrimp': { name: 'Shrimp', serving: '100g', calories: 99, protein: '24g', carbs: '0.2g', fat: '0.3g' },
+                    'beef': { name: 'Beef (lean)', serving: '100g', calories: 250, protein: '26g', carbs: '0g', fat: '15g' },
+                    'steak': { name: 'Steak (sirloin)', serving: '100g', calories: 271, protein: '25g', carbs: '0g', fat: '18g' },
+                    'pork': { name: 'Pork (lean)', serving: '100g', calories: 242, protein: '27g', carbs: '0g', fat: '14g' },
+                    'lamb': { name: 'Lamb', serving: '100g', calories: 294, protein: '25g', carbs: '0g', fat: '21g' },
+                    'bacon': { name: 'Bacon', serving: '2 slices (16g)', calories: 86, protein: '6g', carbs: '0.2g', fat: '7g' },
+                    'egg': { name: 'Egg', serving: '1 large (50g)', calories: 72, protein: '6g', carbs: '0.4g', fat: '5g' },
+                    'eggs': { name: 'Egg', serving: '1 large (50g)', calories: 72, protein: '6g', carbs: '0.4g', fat: '5g' },
+                    'egg white': { name: 'Egg White', serving: '1 large', calories: 17, protein: '3.6g', carbs: '0.2g', fat: '0.1g' },
+                    'tofu': { name: 'Tofu', serving: '100g', calories: 76, protein: '8g', carbs: '1.9g', fat: '4.8g' },
+                    'tempeh': { name: 'Tempeh', serving: '100g', calories: 193, protein: '19g', carbs: '9g', fat: '11g' },
+                    'seitan': { name: 'Seitan', serving: '100g', calories: 370, protein: '75g', carbs: '14g', fat: '1.9g' },
+                    
+                    // Dairy
+                    'milk': { name: 'Milk (2%)', serving: '1 cup (244g)', calories: 122, protein: '8g', carbs: '12g', fat: '4.8g' },
+                    'whole milk': { name: 'Whole Milk', serving: '1 cup (244g)', calories: 149, protein: '8g', carbs: '12g', fat: '8g' },
+                    'skim milk': { name: 'Skim Milk', serving: '1 cup (244g)', calories: 83, protein: '8g', carbs: '12g', fat: '0.2g' },
+                    'yogurt': { name: 'Greek Yogurt', serving: '1 cup (170g)', calories: 100, protein: '17g', carbs: '6g', fat: '0.7g' },
+                    'greek yogurt': { name: 'Greek Yogurt', serving: '1 cup (170g)', calories: 100, protein: '17g', carbs: '6g', fat: '0.7g' },
+                    'regular yogurt': { name: 'Regular Yogurt', serving: '1 cup (245g)', calories: 154, protein: '13g', carbs: '17g', fat: '4g' },
+                    'cheese': { name: 'Cheddar Cheese', serving: '1 oz (28g)', calories: 114, protein: '7g', carbs: '0.4g', fat: '9g' },
+                    'cheddar': { name: 'Cheddar Cheese', serving: '1 oz (28g)', calories: 114, protein: '7g', carbs: '0.4g', fat: '9g' },
+                    'mozzarella': { name: 'Mozzarella', serving: '1 oz (28g)', calories: 85, protein: '6g', carbs: '1g', fat: '6g' },
+                    'cottage cheese': { name: 'Cottage Cheese', serving: '1 cup (226g)', calories: 163, protein: '28g', carbs: '6g', fat: '2.3g' },
+                    'cream cheese': { name: 'Cream Cheese', serving: '1 oz (28g)', calories: 99, protein: '2g', carbs: '1.6g', fat: '10g' },
+                    'butter': { name: 'Butter', serving: '1 tbsp (14g)', calories: 102, protein: '0.1g', carbs: '0g', fat: '12g' },
+                    
+                    // Grains & Carbs
+                    'rice': { name: 'White Rice', serving: '1 cup cooked (158g)', calories: 205, protein: '4.3g', carbs: '45g', fat: '0.4g' },
+                    'white rice': { name: 'White Rice', serving: '1 cup cooked (158g)', calories: 205, protein: '4.3g', carbs: '45g', fat: '0.4g' },
+                    'brown rice': { name: 'Brown Rice', serving: '1 cup cooked (195g)', calories: 216, protein: '5g', carbs: '45g', fat: '1.8g' },
+                    'quinoa': { name: 'Quinoa', serving: '1 cup cooked (185g)', calories: 222, protein: '8g', carbs: '39g', fat: '3.6g' },
+                    'oats': { name: 'Oatmeal', serving: '1 cup cooked (234g)', calories: 166, protein: '5.9g', carbs: '28g', fat: '3.6g' },
+                    'oatmeal': { name: 'Oatmeal', serving: '1 cup cooked (234g)', calories: 166, protein: '5.9g', carbs: '28g', fat: '3.6g' },
+                    'pasta': { name: 'Pasta', serving: '1 cup cooked (140g)', calories: 220, protein: '8g', carbs: '43g', fat: '1.3g' },
+                    'whole wheat pasta': { name: 'Whole Wheat Pasta', serving: '1 cup cooked (140g)', calories: 174, protein: '7.5g', carbs: '37g', fat: '0.8g' },
+                    'bread': { name: 'Whole Wheat Bread', serving: '1 slice (28g)', calories: 69, protein: '3.6g', carbs: '12g', fat: '1g' },
+                    'white bread': { name: 'White Bread', serving: '1 slice (25g)', calories: 67, protein: '2g', carbs: '13g', fat: '0.8g' },
+                    'bagel': { name: 'Bagel', serving: '1 medium (89g)', calories: 245, protein: '10g', carbs: '48g', fat: '1.4g' },
+                    'tortilla': { name: 'Flour Tortilla', serving: '1 medium (49g)', calories: 146, protein: '4g', carbs: '25g', fat: '3.5g' },
+                    'couscous': { name: 'Couscous', serving: '1 cup cooked (157g)', calories: 176, protein: '6g', carbs: '36g', fat: '0.3g' },
+                    
+                    // Vegetables
+                    'broccoli': { name: 'Broccoli', serving: '1 cup chopped (91g)', calories: 31, protein: '2.5g', carbs: '6g', fat: '0.3g' },
                     'spinach': { name: 'Spinach', serving: '1 cup raw (30g)', calories: 7, protein: '0.9g', carbs: '1.1g', fat: '0.1g' },
+                    'kale': { name: 'Kale', serving: '1 cup chopped (67g)', calories: 33, protein: '2.9g', carbs: '6g', fat: '0.5g' },
                     'carrot': { name: 'Carrot', serving: '1 medium (61g)', calories: 25, protein: '0.6g', carbs: '6g', fat: '0.1g' },
+                    'carrots': { name: 'Carrot', serving: '1 medium (61g)', calories: 25, protein: '0.6g', carbs: '6g', fat: '0.1g' },
                     'tomato': { name: 'Tomato', serving: '1 medium (123g)', calories: 22, protein: '1.1g', carbs: '4.8g', fat: '0.2g' },
+                    'tomatoes': { name: 'Tomato', serving: '1 medium (123g)', calories: 22, protein: '1.1g', carbs: '4.8g', fat: '0.2g' },
                     'cucumber': { name: 'Cucumber', serving: '1 cup sliced (119g)', calories: 16, protein: '0.8g', carbs: '3.6g', fat: '0.1g' },
+                    'bell pepper': { name: 'Bell Pepper', serving: '1 medium (119g)', calories: 24, protein: '1g', carbs: '6g', fat: '0.2g' },
+                    'lettuce': { name: 'Lettuce', serving: '1 cup shredded (36g)', calories: 5, protein: '0.5g', carbs: '1g', fat: '0.1g' },
+                    'cauliflower': { name: 'Cauliflower', serving: '1 cup (107g)', calories: 27, protein: '2g', carbs: '5g', fat: '0.3g' },
+                    'asparagus': { name: 'Asparagus', serving: '1 cup (134g)', calories: 27, protein: '3g', carbs: '5g', fat: '0.2g' },
+                    'green beans': { name: 'Green Beans', serving: '1 cup (100g)', calories: 31, protein: '1.8g', carbs: '7g', fat: '0.1g' },
+                    'mushroom': { name: 'Mushrooms', serving: '1 cup sliced (70g)', calories: 15, protein: '2.2g', carbs: '2.3g', fat: '0.2g' },
+                    'mushrooms': { name: 'Mushrooms', serving: '1 cup sliced (70g)', calories: 15, protein: '2.2g', carbs: '2.3g', fat: '0.2g' },
+                    'onion': { name: 'Onion', serving: '1 medium (110g)', calories: 44, protein: '1.2g', carbs: '10g', fat: '0.1g' },
+                    'garlic': { name: 'Garlic', serving: '3 cloves (9g)', calories: 13, protein: '0.6g', carbs: '3g', fat: '0g' },
+                    
+                    // Potatoes
+                    'potato': { name: 'Potato', serving: '1 medium (173g)', calories: 164, protein: '4.3g', carbs: '37g', fat: '0.2g' },
+                    'potatoes': { name: 'Potato', serving: '1 medium (173g)', calories: 164, protein: '4.3g', carbs: '37g', fat: '0.2g' },
+                    'sweet potato': { name: 'Sweet Potato', serving: '1 medium (114g)', calories: 103, protein: '2.3g', carbs: '24g', fat: '0.2g' },
+                    'fries': { name: 'French Fries', serving: '1 medium (117g)', calories: 365, protein: '3.8g', carbs: '48g', fat: '17g' },
+                    
+                    // Legumes & Beans
+                    'lentils': { name: 'Lentils', serving: '1 cup cooked (198g)', calories: 230, protein: '18g', carbs: '40g', fat: '0.8g' },
+                    'chickpeas': { name: 'Chickpeas', serving: '1 cup cooked (164g)', calories: 269, protein: '15g', carbs: '45g', fat: '4.3g' },
+                    'black beans': { name: 'Black Beans', serving: '1 cup cooked (172g)', calories: 227, protein: '15g', carbs: '41g', fat: '0.9g' },
+                    'kidney beans': { name: 'Kidney Beans', serving: '1 cup cooked (177g)', calories: 225, protein: '15g', carbs: '40g', fat: '0.9g' },
+                    'pinto beans': { name: 'Pinto Beans', serving: '1 cup cooked (171g)', calories: 245, protein: '15g', carbs: '45g', fat: '1.1g' },
+                    'peas': { name: 'Green Peas', serving: '1 cup (160g)', calories: 134, protein: '8.6g', carbs: '25g', fat: '0.4g' },
+                    
+                    // Nuts & Seeds
+                    'almonds': { name: 'Almonds', serving: '1 oz (28g)', calories: 164, protein: '6g', carbs: '6g', fat: '14g' },
+                    'walnuts': { name: 'Walnuts', serving: '1 oz (28g)', calories: 185, protein: '4.3g', carbs: '3.9g', fat: '18g' },
+                    'cashews': { name: 'Cashews', serving: '1 oz (28g)', calories: 157, protein: '5g', carbs: '9g', fat: '12g' },
+                    'peanuts': { name: 'Peanuts', serving: '1 oz (28g)', calories: 161, protein: '7g', carbs: '4.6g', fat: '14g' },
+                    'peanut butter': { name: 'Peanut Butter', serving: '2 tbsp (32g)', calories: 188, protein: '8g', carbs: '7g', fat: '16g' },
+                    'almond butter': { name: 'Almond Butter', serving: '2 tbsp (32g)', calories: 196, protein: '7g', carbs: '6g', fat: '18g' },
+                    'chia seeds': { name: 'Chia Seeds', serving: '1 oz (28g)', calories: 138, protein: '4.7g', carbs: '12g', fat: '8.7g' },
+                    'flaxseed': { name: 'Flaxseed', serving: '1 tbsp (10g)', calories: 55, protein: '1.9g', carbs: '3g', fat: '4.3g' },
+                    'sunflower seeds': { name: 'Sunflower Seeds', serving: '1 oz (28g)', calories: 165, protein: '5.5g', carbs: '6.8g', fat: '14g' },
+                    
+                    // Healthy Fats
+                    'avocado': { name: 'Avocado', serving: '1 medium (200g)', calories: 322, protein: '4g', carbs: '17g', fat: '29g' },
+                    'olive oil': { name: 'Olive Oil', serving: '1 tbsp (14g)', calories: 119, protein: '0g', carbs: '0g', fat: '14g' },
+                    'coconut oil': { name: 'Coconut Oil', serving: '1 tbsp (14g)', calories: 121, protein: '0g', carbs: '0g', fat: '14g' },
+                    
+                    // Fast Food & Treats
                     'pizza': { name: 'Pizza (cheese)', serving: '1 slice (107g)', calories: 272, protein: '12g', carbs: '34g', fat: '10g' },
                     'burger': { name: 'Hamburger', serving: '1 burger (110g)', calories: 295, protein: '17g', carbs: '30g', fat: '12g' },
-                    'chocolate': { name: 'Chocolate (dark)', serving: '1 oz (28g)', calories: 155, protein: '1.4g', carbs: '13g', fat: '11g' }
+                    'cheeseburger': { name: 'Cheeseburger', serving: '1 burger (154g)', calories: 359, protein: '21g', carbs: '31g', fat: '16g' },
+                    'hot dog': { name: 'Hot Dog', serving: '1 with bun (98g)', calories: 290, protein: '11g', carbs: '24g', fat: '17g' },
+                    'chocolate': { name: 'Chocolate (dark)', serving: '1 oz (28g)', calories: 155, protein: '1.4g', carbs: '13g', fat: '11g' },
+                    'ice cream': { name: 'Ice Cream', serving: '1/2 cup (66g)', calories: 137, protein: '2.3g', carbs: '16g', fat: '7g' },
+                    'donut': { name: 'Donut (glazed)', serving: '1 medium (52g)', calories: 192, protein: '2.3g', carbs: '23g', fat: '10g' },
+                    'cookie': { name: 'Chocolate Chip Cookie', serving: '1 medium (16g)', calories: 78, protein: '0.9g', carbs: '10g', fat: '4g' },
+                    'chips': { name: 'Potato Chips', serving: '1 oz (28g)', calories: 152, protein: '2g', carbs: '15g', fat: '10g' },
+                    'popcorn': { name: 'Popcorn (air-popped)', serving: '1 cup (8g)', calories: 31, protein: '1g', carbs: '6g', fat: '0.4g' },
+                    'soda': { name: 'Soda', serving: '12 oz (355ml)', calories: 140, protein: '0g', carbs: '39g', fat: '0g' },
+                    'beer': { name: 'Beer', serving: '12 oz (355ml)', calories: 153, protein: '1.6g', carbs: '13g', fat: '0g' },
+                    'wine': { name: 'Red Wine', serving: '5 oz (148ml)', calories: 125, protein: '0.1g', carbs: '3.8g', fat: '0g' }
                 };
 
                 setTimeout(() => {
@@ -1405,40 +1496,138 @@
                 setInput('');
                 setTyping(true);
 
-                // Built-in health knowledge base
+                // Comprehensive health knowledge base
                 const healthAnswers = {
+                    // Exercise & Fitness
                     'benefits of running': 'Running offers numerous benefits: improves cardiovascular health, strengthens bones and muscles, helps with weight management, reduces stress, boosts mood through endorphin release, improves sleep quality, and increases longevity. Start slow and build up gradually!',
+                    'running': 'Running is an excellent cardio exercise! Benefits include improved heart health, calorie burning, stress relief, and increased endurance. For beginners: start with walk-run intervals, invest in proper shoes, warm up before and cool down after, and gradually increase distance by no more than 10% per week.',
                     'best protein sources': 'Great protein sources include: Lean meats (chicken, turkey), fish (salmon, tuna), eggs, Greek yogurt, cottage cheese, legumes (lentils, chickpeas, black beans), tofu, tempeh, nuts and seeds, quinoa, and protein powder. Aim for 0.8-1g of protein per kg of body weight daily.',
+                    'protein': 'Protein is essential for muscle building, repair, and overall health. Good sources: chicken, fish, eggs, dairy, legumes, tofu, nuts. Adults need 0.8-1g per kg body weight daily. Athletes may need 1.2-2g per kg. Distribute intake throughout the day for best results.',
                     'reduce stress': 'Effective stress reduction methods: Practice deep breathing exercises, try meditation or mindfulness, exercise regularly, get adequate sleep (7-9 hours), maintain social connections, limit caffeine, practice time management, engage in hobbies, spend time in nature, and consider yoga or tai chi.',
+                    'stress': 'Manage stress through: regular exercise, meditation, deep breathing, adequate sleep, social connections, time in nature, limiting caffeine/alcohol, time management, hobbies, and professional help when needed. Chronic stress affects physical and mental health, so management is crucial.',
                     'water intake': 'The general recommendation is 8 glasses (64 ounces or 2 liters) of water daily. However, needs vary based on: activity level, climate, body size, and overall health. A good indicator: your urine should be pale yellow. Drink more during exercise and hot weather!',
+                    'hydration': 'Proper hydration is crucial for: regulating body temperature, transporting nutrients, removing waste, cushioning joints, protecting organs, and maintaining energy. Signs of dehydration: dark urine, fatigue, headache, dizziness. Drink water regularly throughout the day, not just when thirsty.',
+                    'water': 'Water is essential for every bodily function! Drink 8-10 glasses daily, more if exercising or in hot weather. Benefits: better energy, clearer skin, improved digestion, joint health, and better physical performance. Carry a water bottle to remind yourself to drink.',
+                    
+                    // Sleep
                     'sleep': 'Adults need 7-9 hours of quality sleep per night. Good sleep hygiene: maintain consistent sleep schedule, create dark/cool bedroom environment, avoid screens 1 hour before bed, limit caffeine after 2pm, exercise regularly (but not right before bed), and establish relaxing bedtime routine.',
+                    'better sleep': 'Improve sleep quality by: keeping consistent schedule (even weekends), making bedroom dark/cool/quiet, avoiding screens 1hr before bed, limiting caffeine after 2pm, exercising daily, avoiding large meals before bed, trying relaxation techniques, and managing stress.',
+                    'insomnia': 'Combat insomnia by: maintaining regular sleep schedule, creating relaxing bedtime routine, avoiding caffeine/alcohol/nicotine, exercising daily (but not before bed), keeping bedroom cool/dark, limiting daytime naps, managing stress, and avoiding screens before bed. If persistent, consult a doctor.',
+                    'nap': 'Power naps (10-20 minutes) can boost alertness and performance without grogginess. Longer naps (60-90 minutes) allow full sleep cycle but may cause grogginess. Best nap time: early afternoon (1-3pm). Avoid late naps as they can interfere with nighttime sleep.',
+                    
+                    // Exercise Types
                     'exercise': 'Adults should get at least 150 minutes of moderate aerobic activity or 75 minutes of vigorous activity per week, plus strength training 2+ days/week. Mix cardio, strength training, and flexibility work. Find activities you enjoy to stay consistent!',
-                    'nutrition': 'Balanced nutrition includes: 50% of plate as fruits/vegetables, 25% whole grains, 25% lean protein, healthy fats in moderation. Eat variety of colorful foods, limit processed foods and added sugars, stay hydrated, and practice portion control.',
-                    'weight loss': 'Healthy weight loss: Create modest calorie deficit (500 calories/day = 1lb/week loss), eat whole foods, increase protein intake, strength train to preserve muscle, do cardio, get enough sleep, manage stress, stay hydrated, and be patient - sustainable loss is 1-2 lbs/week.',
-                    'muscle building': 'To build muscle: Eat sufficient protein (1.6-2.2g per kg body weight), progressive resistance training 3-5x/week, get 7-9 hours sleep, stay in slight calorie surplus, focus on compound movements (squats, deadlifts, bench press), and be consistent for 8-12 weeks to see results.',
-                    'yoga': 'Yoga benefits: Improves flexibility, builds strength, enhances balance, reduces stress, improves breathing, boosts mental clarity, helps with pain management, and promotes better sleep. Great for all fitness levels. Start with beginner classes or videos!',
-                    'hydration': 'Proper hydration is crucial for: regulating body temperature, transporting nutrients, removing waste, cushioning joints, protecting organs, and maintaining energy. Signs of dehydration: dark urine, fatigue, headache, dizziness. Drink water regularly throughout the day.',
+                    'workout': 'Effective workouts include: cardio (running, cycling, swimming), strength training (weights, bodyweight), HIIT, yoga, pilates. Aim for 3-5 sessions weekly, mixing different types. Always warm up, cool down, and listen to your body. Rest days are important for recovery!',
+                    'cardio': 'Cardio benefits: Strengthens heart and lungs, burns calories, improves endurance, reduces disease risk, boosts mood, and improves sleep. Options: running, cycling, swimming, dancing, hiking, jump rope. Aim for 150+ minutes moderate intensity weekly or 75+ vigorous.',
+                    'strength training': 'Strength training builds muscle, increases metabolism, strengthens bones, improves posture, and enhances daily function. Start with 2-3 sessions weekly, focusing on major muscle groups. Use proper form, progressive overload, and allow recovery between sessions.',
+                    'weight lifting': 'Weight lifting builds strength, muscle mass, and bone density. Beginners: start with lighter weights, focus on form, learn basic movements (squat, deadlift, bench press, rows). Progress gradually, rest 48hrs between working same muscles, and consider getting a trainer initially.',
+                    'hiit': 'HIIT (High-Intensity Interval Training) alternates intense bursts with recovery periods. Benefits: burns calories efficiently, improves cardiovascular fitness, boosts metabolism, saves time. Example: 30 seconds sprint, 30 seconds walk, repeat 10-15 times. Do 2-3 times weekly.',
+                    'stretching': 'Stretching benefits: Increases flexibility, improves range of motion, enhances athletic performance, reduces injury risk, improves posture, relieves stress, and increases blood flow. Stretch after warming up, hold 15-30 seconds, never bounce. Include daily for best results.',
+                    'yoga': 'Yoga benefits: Improves flexibility, builds strength, enhances balance, reduces stress, improves breathing, boosts mental clarity, helps with pain management, and promotes better sleep. Great for all fitness levels. Start with beginner classes or videos. Try different styles to find your fit!',
+                    'pilates': 'Pilates strengthens core, improves posture, increases flexibility, and enhances body awareness. Focuses on controlled movements, breathing, and alignment. Great for all fitness levels, especially good for back pain and injury recovery. Can be done with just a mat or specialized equipment.',
+                    
+                    // Nutrition & Diet
+                    'nutrition': 'Balanced nutrition includes: 50% of plate as fruits/vegetables, 25% whole grains, 25% lean protein, healthy fats in moderation. Eat variety of colorful foods, limit processed foods and added sugars, stay hydrated, and practice portion control. Listen to your body!',
                     'diet': 'Healthy eating principles: Eat whole, unprocessed foods, plenty of vegetables and fruits, whole grains, lean proteins, healthy fats (avocado, nuts, olive oil), limit added sugars and salt, practice portion control, eat mindfully, and allow occasional treats for balance.',
-                    'cardio': 'Cardio benefits: Strengthens heart and lungs, burns calories, improves endurance, reduces disease risk, boosts mood, and improves sleep. Options: running, cycling, swimming, dancing, hiking. Aim for 150+ minutes moderate intensity weekly.',
-                    'stretching': 'Stretching benefits: Increases flexibility, improves range of motion, enhances athletic performance, reduces injury risk, improves posture, relieves stress, and increases blood flow. Stretch after warming up, hold 15-30 seconds, and never bounce.',
-                    'calories': 'Calorie needs vary by age, sex, size, and activity level. Average adult needs 2000-2500 calories daily. To lose weight: create 500 calorie deficit. To gain muscle: slight surplus. Focus on nutrient-dense foods rather than just counting calories.',
-                    'posture': 'Good posture tips: Keep ears aligned over shoulders, shoulders back and down, engage core, feet flat on floor when sitting, take breaks every 30 min, adjust screen to eye level, strengthen back and core muscles, and be mindful throughout day.'
+                    'healthy eating': 'Focus on whole foods: vegetables, fruits, whole grains, lean proteins, healthy fats. Cook at home when possible, read labels, limit processed foods, control portions, eat slowly, stay hydrated, plan meals ahead, and enjoy food without guilt. Balance is key!',
+                    'calories': 'Calorie needs vary by age, sex, size, and activity level. Average adult needs 2000-2500 calories daily. To lose weight: create 500 calorie deficit. To gain muscle: slight surplus. Focus on nutrient-dense foods rather than just counting calories. Quality matters!',
+                    'weight loss': 'Healthy weight loss: Create modest calorie deficit (500 calories/day = 1lb/week loss), eat whole foods, increase protein intake, strength train to preserve muscle, do cardio, get enough sleep, manage stress, stay hydrated, and be patient - sustainable loss is 1-2 lbs/week.',
+                    'lose weight': 'For sustainable weight loss: eat in slight calorie deficit, focus on whole foods, increase protein and fiber, strength train, do cardio, get 7-9hrs sleep, manage stress, drink water, avoid crash diets. Aim for 1-2 lbs/week. Consistency beats perfection!',
+                    'gain weight': 'To gain weight healthily: eat in calorie surplus (300-500 extra calories/day), focus on nutrient-dense foods, eat more frequently, add healthy fats, strength train, get adequate protein (1.6-2.2g per kg), be patient. Aim for 0.5-1 lb/week to minimize fat gain.',
+                    'muscle building': 'To build muscle: Eat sufficient protein (1.6-2.2g per kg body weight), progressive resistance training 3-5x/week, get 7-9 hours sleep, stay in slight calorie surplus, focus on compound movements (squats, deadlifts, bench press), and be consistent for 8-12 weeks to see results.',
+                    'build muscle': 'Muscle building requires: progressive resistance training 3-5x weekly, adequate protein (1.6-2.2g per kg), slight calorie surplus, 7-9hrs sleep, compound exercises (squats, deadlifts, bench, rows), consistency for 8-12+ weeks. Rest and recovery are as important as training!',
+                    'protein powder': 'Protein powder is convenient for meeting protein needs. Whey is fast-absorbing (good post-workout), casein is slow (good before bed), plant-based options available. Most people can get enough protein from food, but powder helps athletes, busy people, or those with high needs.',
+                    'vitamins': 'Important vitamins: Vitamin D (bone health, immunity), B vitamins (energy), C (immunity, antioxidant), A (vision, immunity), E (antioxidant), K (blood clotting). Best from whole foods. Consider supplements for D (especially in winter) and B12 (if vegetarian/vegan) after consulting doctor.',
+                    'supplements': 'Most people can get nutrients from balanced diet. Potentially helpful supplements: Vitamin D (if deficient), Omega-3 (if not eating fish), protein powder (convenience), creatine (for muscle building). Always consult healthcare provider before starting supplements.',
+                    
+                    // Specific Foods & Macros
+                    'carbs': 'Carbohydrates are primary energy source. Choose complex carbs: whole grains, oats, quinoa, sweet potatoes, fruits, vegetables. Limit simple carbs: white bread, sugary foods. Carbs aren\'t bad - timing and quality matter. Athletes need more carbs for performance and recovery.',
+                    'carbohydrates': 'Carbs provide energy for brain and muscles. Good sources: whole grains, oats, fruits, vegetables, legumes, sweet potatoes. Need 45-65% of calories from carbs. Athletes need more. Focus on complex carbs over simple sugars for sustained energy and better health.',
+                    'fats': 'Healthy fats are essential for hormone production, nutrient absorption, and brain health. Good sources: avocados, nuts, seeds, olive oil, fatty fish, eggs. Need 20-35% calories from fat. Limit saturated fats and avoid trans fats. Don\'t fear healthy fats!',
+                    'fiber': 'Fiber aids digestion, helps control blood sugar, lowers cholesterol, and promotes satiety. Aim for 25-38g daily. Good sources: vegetables, fruits, whole grains, legumes, nuts, seeds. Increase gradually and drink plenty of water to avoid digestive discomfort.',
+                    'sugar': 'Limit added sugars to less than 10% of daily calories (about 50g). Natural sugars in fruits are fine due to fiber and nutrients. Read labels - sugar hides in sauces, drinks, "healthy" snacks. Reduce gradually to avoid cravings. Choose water over sugary drinks.',
+                    'breakfast': 'Breakfast jumpstarts metabolism and provides morning energy. Good options: oatmeal with fruit, eggs with whole grain toast, Greek yogurt with berries and nuts, smoothie with protein and greens. Include protein, complex carbs, and healthy fats for sustained energy.',
+                    'meal prep': 'Meal prep saves time, money, and supports health goals. Tips: plan weekly menu, shop with list, cook in batches, use containers, prep ingredients in advance, freeze portions, keep it simple. Start with 2-3 meals, not whole week. Make it sustainable!',
+                    
+                    // Mental Health & Wellness
+                    'mental health': 'Mental health is as important as physical health. Maintain through: regular exercise, adequate sleep, social connections, stress management, healthy diet, mindfulness, hobbies, professional help when needed. Don\'t hesitate to seek support - it\'s a sign of strength!',
+                    'meditation': 'Meditation reduces stress, improves focus, enhances emotional health, and promotes better sleep. Start with 5-10 minutes daily. Find quiet space, focus on breathing, acknowledge thoughts without judgment. Apps like Headspace or Calm can guide beginners. Consistency matters more than duration.',
+                    'anxiety': 'Manage anxiety through: regular exercise, deep breathing, meditation, adequate sleep, limiting caffeine/alcohol, talking to supportive people, challenging negative thoughts, professional therapy. Physical symptoms are real - exercise and breathing techniques can provide immediate relief.',
+                    'depression': 'If experiencing depression: reach out to mental health professional, maintain exercise routine, get sunlight exposure, stay connected with loved ones, maintain regular sleep schedule, eat nutritious food, avoid alcohol. Depression is medical condition - seeking help is important and effective.',
+                    'mindfulness': 'Mindfulness means present-moment awareness without judgment. Practice through: meditation, mindful breathing, body scans, mindful eating, or simply noticing surroundings. Benefits: reduced stress, better focus, emotional regulation, improved relationships. Start with 5 minutes daily.',
+                    
+                    // Posture & Pain
+                    'posture': 'Good posture tips: Keep ears aligned over shoulders, shoulders back and down, engage core, feet flat on floor when sitting, take breaks every 30 min, adjust screen to eye level, strengthen back and core muscles, and be mindful throughout day.',
+                    'back pain': 'Prevent back pain: maintain good posture, strengthen core and back muscles, lift properly (bend knees, not back), stay active, maintain healthy weight, stretch regularly, use ergonomic furniture. For chronic pain, see healthcare provider for proper diagnosis.',
+                    'neck pain': 'Reduce neck pain: adjust screen to eye level, take breaks from phone/computer every 20-30 min, stretch neck and shoulders, strengthen neck muscles, improve posture, use proper pillow for sleep, apply heat/ice. Persistent pain needs professional evaluation.',
+                    'sitting': 'Combat sitting risks: take breaks every 30 minutes, stand/walk while on phone, use standing desk, do desk stretches, exercise regularly, maintain good posture. Prolonged sitting increases disease risk, back pain, and poor posture. Movement is medicine!',
+                    
+                    // Recovery & Rest
+                    'recovery': 'Recovery is crucial for fitness progress. Include: adequate sleep (7-9hrs), rest days (1-2 weekly), proper nutrition, hydration, stretching, foam rolling, active recovery (light walking/yoga), stress management. Muscle growth happens during rest, not just training!',
+                    'rest day': 'Rest days prevent overtraining, allow muscle repair, reduce injury risk, and prevent burnout. Include 1-2 weekly. Active recovery (walking, gentle yoga, swimming) or complete rest both work. Listen to your body - sometimes extra rest is needed. Rest is productive!',
+                    'sore muscles': 'Muscle soreness (DOMS) is normal after new/intense exercise. Manage with: light activity, stretching, foam rolling, proper hydration, adequate protein, rest, ice/heat, massage. Soreness peaks 24-72hrs post-exercise. If severe or persistent, consult healthcare provider.',
+                    'injury prevention': 'Prevent injuries: warm up properly, use correct form, progress gradually, include rest days, strengthen supporting muscles, maintain flexibility, listen to pain signals, wear proper footwear, stay hydrated. Don\'t push through sharp pain - rest and seek help if needed.',
+                    
+                    // Special Topics
+                    'metabolism': 'Boost metabolism through: building muscle (lifts resting metabolic rate), eating protein (higher thermic effect), staying active, getting adequate sleep, drinking water, eating enough (too few calories slows metabolism), HIIT workouts. Metabolism varies by genetics, age, muscle mass.',
+                    'intermittent fasting': 'Intermittent fasting involves eating windows (like 16:8 - fast 16hrs, eat in 8hr window). Potential benefits: weight loss, improved insulin sensitivity, cellular repair. Not for everyone - those with eating disorders, pregnant/nursing women, or certain conditions should avoid. Consult doctor first.',
+                    'keto': 'Keto diet is very low-carb (under 50g daily), high-fat diet that puts body in ketosis. Can aid weight loss and blood sugar control. Challenges: restrictive, "keto flu" initially, hard to sustain long-term. Not suitable for everyone. Consult healthcare provider before starting.',
+                    'vegan': 'Vegan diets exclude all animal products. Can be very healthy with planning. Ensure adequate: protein (legumes, tofu, tempeh, seitan), B12 (supplement), iron (beans, fortified foods), calcium, omega-3s (flaxseed, chia, walnuts), vitamin D. Consider working with dietitian.',
+                    'vegetarian': 'Vegetarian diets can be very healthy. Ensure adequate protein from: legumes, tofu, tempeh, eggs, dairy, quinoa, nuts. May need to monitor iron, B12, omega-3s, vitamin D. Include variety of whole foods. Well-planned vegetarian diets support all life stages.',
+                    'alcohol': 'Alcohol in moderation: up to 1 drink/day for women, 2 for men. Negatives: empty calories, impairs recovery, disrupts sleep, dehydrates, impacts judgment. If drinking: stay hydrated, eat food, know limits, avoid before workouts. Less is better for health and fitness goals.',
+                    'caffeine': 'Caffeine can enhance performance and alertness. Benefits: increased focus, enhanced endurance, fat burning. Downsides: sleep disruption, anxiety, dependency. Limit to 400mg daily (4 cups coffee). Avoid after 2pm for better sleep. Listen to your body\'s response.',
+                    
+                    // Body Composition
+                    'body fat': 'Healthy body fat ranges: men 10-20%, women 18-28%. Too low or high poses health risks. Reduce through: calorie deficit, strength training, cardio, adequate protein, sleep, stress management. Spot reduction is myth - can\'t target fat loss. Focus on overall health, not just numbers.',
+                    'bmi': 'BMI (Body Mass Index) is weight-to-height ratio. Healthy range: 18.5-24.9. Limitations: doesn\'t account for muscle mass, bone density, distribution. Athletes often have "high" BMI due to muscle. Use as general guide, not absolute measure. Body composition matters more than weight alone.',
+                    'muscle vs fat': 'Muscle is denser than fat but doesn\'t "weigh more" - a pound is a pound. Muscle takes less space, increases metabolism, improves strength and function. Focus on body composition (muscle-to-fat ratio) rather than just scale weight. Muscle gain while losing fat is ideal.',
+                    
+                    // Age-Specific
+                    'aging': 'Healthy aging tips: stay physically active (strength and cardio), eat nutrient-dense diet, maintain social connections, keep mind active, get regular health checkups, manage stress, adequate sleep, stay hydrated, maintain healthy weight. Never too late to start healthy habits!',
+                    'elderly': 'Fitness for seniors: focus on balance exercises (prevent falls), strength training (maintain muscle/bone), low-impact cardio (walking, swimming), flexibility work. Consult doctor before starting. Regular activity improves quality of life, independence, and reduces disease risk.',
+                    
+                    // Motivation & Habits
+                    'motivation': 'Stay motivated by: setting specific goals, tracking progress, finding workout buddy, varying routine, celebrating small wins, focusing on how you feel (not just looks), scheduling workouts like appointments, joining classes/groups, remembering your "why". Discipline beats motivation long-term!',
+                    'habits': 'Build healthy habits: start small, be consistent, link to existing habits (habit stacking), track progress, remove barriers, make it enjoyable, be patient (takes 21-66 days), don\'t aim for perfection. Focus on systems, not just goals. Small consistent actions create big results!',
+                    'consistency': 'Consistency is key to results! Tips: schedule workouts, prepare healthy meals, find activities you enjoy, track habits, get accountability partner, focus on progress not perfection, be patient. Showing up matters more than intensity. Build sustainable lifestyle, not quick fix.',
+                    
+                    // Common Questions
+                    'spot reduction': 'Spot reduction (losing fat from specific area) is a myth. Body decides where to lose/store fat based on genetics. To reduce fat anywhere: create calorie deficit through diet and exercise, strength train to build muscle, be patient. Overall fat loss will eventually reduce problem areas.',
+                    'abs': 'Visible abs require low body fat (men <12%, women <20%) AND developed ab muscles. Achieve through: calorie deficit for fat loss, core strengthening exercises, overall strength training, cardio, good nutrition. Remember "abs are made in the kitchen" - diet is crucial. Genetics affect ab appearance.',
+                    'toned': '"Toned" means low body fat + muscle definition. Achieve by: building muscle (strength training), reducing body fat (calorie deficit + cardio), adequate protein intake, consistency over time. Can\'t "tone" a muscle - you build muscle and reduce fat covering it.',
+                    'gym': 'Gym benefits: access to equipment, structured environment, classes, community. Not required - bodyweight, outdoor activities, home workouts effective too. If joining: get orientation, start with simple routine, don\'t be intimidated, focus on your journey. Consistency matters more than location!',
+                    'home workout': 'Effective home workouts use: bodyweight exercises (push-ups, squats, planks), resistance bands, dumbbells, online videos/apps. Advantages: convenience, cost-effective, privacy. Can build strength, endurance, flexibility at home. Requires self-discipline but totally viable alternative to gym!'
                 };
 
                 // Find matching answer
-                const lowerText = text.toLowerCase();
+                const lowerText = text.toLowerCase().trim();
                 let response = null;
                 
+                // Check for exact matches or keyword matches
                 for (const [key, answer] of Object.entries(healthAnswers)) {
-                    if (lowerText.includes(key) || key.includes(lowerText.split(' ')[0])) {
+                    if (lowerText.includes(key) || key.includes(lowerText.replace(/[?!.,]/g, '').trim())) {
                         response = answer;
                         break;
                     }
                 }
 
+                // If no match found, try to match individual words
                 if (!response) {
-                    // Default helpful response
-                    response = "I'm a health assistant that can help with questions about: exercise, nutrition, sleep, hydration, weight loss, muscle building, yoga, stress reduction, and general wellness. Try asking about any of these topics!";
+                    const words = lowerText.split(' ').filter(w => w.length > 3);
+                    for (const word of words) {
+                        for (const [key, answer] of Object.entries(healthAnswers)) {
+                            if (key.includes(word) || word.includes(key)) {
+                                response = answer;
+                                break;
+                            }
+                        }
+                        if (response) break;
+                    }
+                }
+
+                if (!response) {
+                    // Default helpful response with topic suggestions
+                    response = "I'm a health assistant ready to help! I can answer questions about:\n\n💪 Exercise: running, cardio, strength training, yoga, HIIT, stretching\n🥗 Nutrition: protein, diet, calories, weight loss, muscle building, vitamins\n😴 Wellness: sleep, stress, meditation, mental health, hydration\n🏋️ Fitness: workout plans, recovery, posture, injury prevention\n\nTry asking about any of these topics!";
                 }
 
                 setTimeout(() => {
