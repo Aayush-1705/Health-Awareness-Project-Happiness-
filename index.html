@@ -952,6 +952,12 @@
                             <HealthQuiz />
                             <FitnessChallenge />
                         </div>
+                        <div style={{marginTop: '2.5rem', maxWidth: '700px', margin: '2.5rem auto 0'}}>
+                            <NutritionQuiz />
+                        </div>
+                        <div style={{marginTop: '2.5rem', maxWidth: '700px', margin: '2.5rem auto 0'}}>
+                            <MythsVsFacts />
+                        </div>
                     </div>
                 </section>
             );
@@ -1247,6 +1253,618 @@
                             <div className="stat-box">
                                 <div className="stat-value">{totalTime}s</div>
                                 <div className="stat-label">Time Held</div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        function NutritionQuiz() {
+            const [currentRound, setCurrentRound] = useState(0);
+            const [score, setScore] = useState(0);
+            const [selected, setSelected] = useState(null);
+            const [gameOver, setGameOver] = useState(false);
+            const [streak, setStreak] = useState(0);
+            const [bestStreak, setBestStreak] = useState(0);
+
+            const foodPairs = [
+                { 
+                    foods: ['Apple', 'Donut'],
+                    healthier: 0,
+                    reason: 'Apple is rich in fiber, vitamins, and antioxidants with only 95 calories. Donut is high in sugar and unhealthy fats with 192 calories.',
+                    cals: [95, 192]
+                },
+                { 
+                    foods: ['Grilled Chicken Breast', 'Fried Chicken'],
+                    healthier: 0,
+                    reason: 'Grilled chicken is lean protein (165 cal/100g, 31g protein). Fried chicken adds unhealthy fats and calories from deep frying.',
+                    cals: [165, 350]
+                },
+                { 
+                    foods: ['Brown Rice', 'White Rice'],
+                    healthier: 0,
+                    reason: 'Brown rice has more fiber, vitamins, and minerals. It has a lower glycemic index and keeps you fuller longer.',
+                    cals: [216, 205]
+                },
+                { 
+                    foods: ['Sweet Potato', 'French Fries'],
+                    healthier: 0,
+                    reason: 'Sweet potato (103 cal) is rich in vitamins A, C, fiber. Fries (365 cal) are deep-fried and high in unhealthy fats and sodium.',
+                    cals: [103, 365]
+                },
+                { 
+                    foods: ['Oatmeal', 'Sugary Cereal'],
+                    healthier: 0,
+                    reason: 'Oatmeal (166 cal) provides complex carbs, fiber, and sustained energy. Sugary cereals spike blood sugar and lack nutrients.',
+                    cals: [166, 210]
+                },
+                { 
+                    foods: ['Greek Yogurt', 'Ice Cream'],
+                    healthier: 0,
+                    reason: 'Greek yogurt (100 cal, 17g protein) is high in protein and probiotics. Ice cream (137 cal) is high in sugar and saturated fat.',
+                    cals: [100, 137]
+                },
+                { 
+                    foods: ['Almonds', 'Potato Chips'],
+                    healthier: 0,
+                    reason: 'Almonds provide healthy fats, protein, vitamin E, and fiber. Chips are high in unhealthy fats, sodium, and empty calories.',
+                    cals: [164, 152]
+                },
+                { 
+                    foods: ['Salmon', 'Burger'],
+                    healthier: 0,
+                    reason: 'Salmon (208 cal) is rich in omega-3 fatty acids and quality protein. Burgers often have unhealthy fats and processed ingredients.',
+                    cals: [208, 295]
+                },
+                { 
+                    foods: ['Whole Wheat Bread', 'White Bread'],
+                    healthier: 0,
+                    reason: 'Whole wheat bread has more fiber, B vitamins, and minerals. It provides sustained energy and better blood sugar control.',
+                    cals: [69, 67]
+                },
+                { 
+                    foods: ['Water', 'Soda'],
+                    healthier: 0,
+                    reason: 'Water (0 cal) is essential for hydration with no sugar. Soda (140 cal) has empty calories, sugar, and no nutritional value.',
+                    cals: [0, 140]
+                },
+                { 
+                    foods: ['Grilled Vegetables', 'Pizza'],
+                    healthier: 0,
+                    reason: 'Grilled vegetables are low-calorie, nutrient-dense with vitamins and fiber. Pizza is high in calories, saturated fat, and sodium.',
+                    cals: [50, 272]
+                },
+                { 
+                    foods: ['Banana', 'Cookie'],
+                    healthier: 0,
+                    reason: 'Banana (105 cal) provides potassium, fiber, and natural sugars. Cookies (78 cal) have added sugar, unhealthy fats, and minimal nutrition.',
+                    cals: [105, 78]
+                },
+                { 
+                    foods: ['Chapati', 'Puri'],
+                    healthier: 0,
+                    reason: 'Chapati (104 cal) is whole wheat and nutritious. Puri (112 cal) is deep-fried, adding unhealthy fats and extra calories.',
+                    cals: [104, 112]
+                },
+                { 
+                    foods: ['Dal', 'Butter Chicken'],
+                    healthier: 0,
+                    reason: 'Dal (212 cal, 14g protein) is protein-rich with fiber and low fat. Butter chicken (438 cal) is high in cream, butter, and saturated fat.',
+                    cals: [212, 438]
+                },
+                { 
+                    foods: ['Idli', 'Samosa'],
+                    healthier: 0,
+                    reason: 'Idli (156 cal for 2) is steamed, fermented, and probiotic-rich. Samosa (153 cal) is deep-fried with higher fat content.',
+                    cals: [156, 153]
+                }
+            ];
+
+            const handleChoice = (index) => {
+                if (selected !== null) return;
+                
+                setSelected(index);
+                const isCorrect = index === foodPairs[currentRound].healthier;
+                
+                if (isCorrect) {
+                    setScore(score + 1);
+                    setStreak(streak + 1);
+                    if (streak + 1 > bestStreak) {
+                        setBestStreak(streak + 1);
+                    }
+                } else {
+                    setStreak(0);
+                }
+
+                setTimeout(() => {
+                    if (currentRound < foodPairs.length - 1) {
+                        setCurrentRound(currentRound + 1);
+                        setSelected(null);
+                    } else {
+                        setGameOver(true);
+                    }
+                }, 2500);
+            };
+
+            const restart = () => {
+                setCurrentRound(0);
+                setScore(0);
+                setSelected(null);
+                setGameOver(false);
+                setStreak(0);
+            };
+
+            if (gameOver) {
+                const percentage = (score / foodPairs.length) * 100;
+                return (
+                    <div className="game-card">
+                        <div className="score-display">
+                            <div className="score-emoji">{percentage >= 70 ? '🥇' : percentage >= 50 ? '🥈' : '🥉'}</div>
+                            <h2 style={{fontSize: '2rem', marginBottom: '1rem'}}>Nutrition Game Complete!</h2>
+                            <div className="score-value">{score}/{foodPairs.length}</div>
+                            <p style={{color: 'var(--text-dim)', fontSize: '1.2rem', marginBottom: '1rem'}}>
+                                {percentage >= 80 ? "Outstanding! You're a nutrition expert!" :
+                                 percentage >= 60 ? "Great job! You know your healthy foods!" :
+                                 "Good effort! Keep learning about nutrition!"}
+                            </p>
+                            <div className="stats-grid">
+                                <div className="stat-box">
+                                    <div className="stat-value">{Math.round(percentage)}%</div>
+                                    <div className="stat-label">Accuracy</div>
+                                </div>
+                                <div className="stat-box">
+                                    <div className="stat-value">{bestStreak}</div>
+                                    <div className="stat-label">Best Streak</div>
+                                </div>
+                                <div className="stat-box">
+                                    <div className="stat-value">{score}</div>
+                                    <div className="stat-label">Correct</div>
+                                </div>
+                            </div>
+                            <button className="btn" style={{marginTop: '2rem'}} onClick={restart}>
+                                Play Again
+                            </button>
+                        </div>
+                    </div>
+                );
+            }
+
+            const pair = foodPairs[currentRound];
+
+            return (
+                <div className="game-card">
+                    <div className="tool-header">
+                        <div className="tool-icon">🍎</div>
+                        <h3 className="tool-title">Healthy Food Challenge</h3>
+                    </div>
+                    
+                    <div style={{marginBottom: '2rem'}}>
+                        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem'}}>
+                            <span style={{color: 'var(--text-dim)', fontWeight: '600'}}>
+                                Round {currentRound + 1}/{foodPairs.length}
+                            </span>
+                            <div style={{display: 'flex', gap: '1.5rem'}}>
+                                <span style={{color: '#6366f1', fontWeight: '700'}}>
+                                    Score: {score}
+                                </span>
+                                {streak > 0 && (
+                                    <span style={{color: '#10b981', fontWeight: '700'}}>
+                                        🔥 Streak: {streak}
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+                        <div className="progress-bar">
+                            <div className="progress-fill" style={{
+                                width: `${((currentRound + 1) / foodPairs.length) * 100}%`
+                            }}></div>
+                        </div>
+                    </div>
+
+                    <h3 style={{
+                        fontSize: '1.6rem',
+                        marginBottom: '2rem',
+                        color: 'var(--text)',
+                        textAlign: 'center'
+                    }}>
+                        Which is the healthier choice?
+                    </h3>
+
+                    <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '2rem'}}>
+                        {pair.foods.map((food, index) => {
+                            let bgColor = 'var(--bg)';
+                            let borderColor = 'var(--border)';
+                            let transform = 'scale(1)';
+
+                            if (selected !== null) {
+                                if (index === pair.healthier) {
+                                    bgColor = 'rgba(16, 185, 129, 0.1)';
+                                    borderColor = '#10b981';
+                                } else if (index === selected && index !== pair.healthier) {
+                                    bgColor = 'rgba(239, 68, 68, 0.1)';
+                                    borderColor = '#ef4444';
+                                }
+                            }
+
+                            return (
+                                <button
+                                    key={index}
+                                    onClick={() => handleChoice(index)}
+                                    disabled={selected !== null}
+                                    style={{
+                                        padding: '2rem 1.5rem',
+                                        background: bgColor,
+                                        border: `3px solid ${borderColor}`,
+                                        borderRadius: '16px',
+                                        cursor: selected !== null ? 'default' : 'pointer',
+                                        transition: 'all 0.3s',
+                                        fontFamily: 'Plus Jakarta Sans, sans-serif',
+                                        transform: transform
+                                    }}
+                                    onMouseOver={(e) => {
+                                        if (selected === null) {
+                                            e.currentTarget.style.transform = 'scale(1.05)';
+                                            e.currentTarget.style.borderColor = '#6366f1';
+                                        }
+                                    }}
+                                    onMouseOut={(e) => {
+                                        if (selected === null) {
+                                            e.currentTarget.style.transform = 'scale(1)';
+                                            e.currentTarget.style.borderColor = 'var(--border)';
+                                        }
+                                    }}
+                                >
+                                    <div style={{fontSize: '3rem', marginBottom: '0.5rem'}}>
+                                        {index === 0 ? '🥗' : '🍔'}
+                                    </div>
+                                    <div style={{fontSize: '1.2rem', fontWeight: '700', color: 'var(--text)', marginBottom: '0.5rem'}}>
+                                        {food}
+                                    </div>
+                                    {selected !== null && (
+                                        <div style={{fontSize: '0.9rem', color: 'var(--text-dim)', marginTop: '0.5rem'}}>
+                                            {pair.cals[index]} calories
+                                        </div>
+                                    )}
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    {selected !== null && (
+                        <div style={{
+                            padding: '1.5rem',
+                            background: selected === pair.healthier ? 'rgba(16, 185, 129, 0.1)' : 'rgba(245, 158, 11, 0.1)',
+                            border: `2px solid ${selected === pair.healthier ? '#10b981' : '#f59e0b'}`,
+                            borderRadius: '12px',
+                            animation: 'slideIn 0.3s ease-out'
+                        }}>
+                            <div style={{
+                                fontWeight: '700',
+                                marginBottom: '0.5rem',
+                                color: selected === pair.healthier ? '#10b981' : '#f59e0b',
+                                fontSize: '1.1rem'
+                            }}>
+                                {selected === pair.healthier ? '✓ Correct!' : '✗ Not quite!'}
+                            </div>
+                            <div style={{color: 'var(--text)', lineHeight: '1.6'}}>
+                                {pair.reason}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        function MythsVsFacts() {
+            const [currentQ, setCurrentQ] = useState(0);
+            const [score, setScore] = useState(0);
+            const [answered, setAnswered] = useState(false);
+            const [userAnswer, setUserAnswer] = useState(null);
+            const [finished, setFinished] = useState(false);
+
+            const statements = [
+                {
+                    text: "Drinking hot water after meals helps digest food faster",
+                    truth: false,
+                    explanation: "❌ MYTH: Water temperature doesn't significantly affect digestion. Your body adjusts water to body temperature. What matters is staying hydrated overall, not water temperature."
+                },
+                {
+                    text: "Eating ghee in moderation is healthy for Indians",
+                    truth: true,
+                    explanation: "✅ FACT: Ghee in moderation (1-2 tsp/day) provides healthy fats, vitamins A, E, K, and butyric acid for gut health. It's better than many refined oils for Indian cooking."
+                },
+                {
+                    text: "Rice makes you gain weight and should be avoided",
+                    truth: false,
+                    explanation: "❌ MYTH: Rice itself doesn't cause weight gain - excess calories do! Brown rice and basmati have fiber and nutrients. Portion control matters more than avoiding rice completely."
+                },
+                {
+                    text: "Eating curd/yogurt at night causes cold and cough",
+                    truth: false,
+                    explanation: "❌ MYTH: No scientific evidence supports this. Curd is nutritious anytime! It's rich in probiotics and protein. However, if you have lactose intolerance, consume carefully."
+                },
+                {
+                    text: "Turmeric milk (haldi doodh) has anti-inflammatory benefits",
+                    truth: true,
+                    explanation: "✅ FACT: Turmeric contains curcumin, a powerful anti-inflammatory compound. Combined with black pepper and warm milk, it aids immunity, reduces inflammation, and helps sleep."
+                },
+                {
+                    text: "Drinking water while standing damages kidneys",
+                    truth: false,
+                    explanation: "❌ MYTH: Your kidneys work the same whether you stand or sit while drinking. Sitting may help you drink slower and avoid gulping air, but it doesn't affect kidney health."
+                },
+                {
+                    text: "Eating banana and milk together is unhealthy",
+                    truth: false,
+                    explanation: "❌ MYTH: This is a common Ayurvedic belief but lacks scientific evidence. Banana and milk together is actually a great post-workout combo - provides carbs, protein, and potassium!"
+                },
+                {
+                    text: "Sprouted moong dal is more nutritious than regular moong dal",
+                    truth: true,
+                    explanation: "✅ FACT: Sprouting increases vitamin C, B vitamins, and makes protein more digestible. Sprouts also have more enzymes and antioxidants. Great for breakfast or salads!"
+                },
+                {
+                    text: "Drinking lots of water will flush out all toxins from body",
+                    truth: false,
+                    explanation: "❌ MYTH: Your liver and kidneys naturally detox your body. Water helps, but 'detox water' or excessive water won't 'flush toxins'. Stay normally hydrated (8-10 glasses/day)."
+                },
+                {
+                    text: "Eating papaya during pregnancy can cause miscarriage",
+                    truth: false,
+                    explanation: "❌ MYTH: Ripe papaya is safe during pregnancy and provides vitamins. However, unripe/semi-ripe papaya contains latex that may trigger contractions. Stick to fully ripe papaya."
+                },
+                {
+                    text: "Jaggery (gur) is much healthier than sugar",
+                    truth: false,
+                    explanation: "❌ MYTH: Jaggery has slightly more minerals than sugar, but both are high in calories and raise blood sugar similarly. Use either in moderation - jaggery isn't a 'healthy' alternative."
+                },
+                {
+                    text: "Eating eggs daily increases cholesterol and causes heart disease",
+                    truth: false,
+                    explanation: "❌ MYTH: Dietary cholesterol has minimal impact on blood cholesterol for most people. Eggs are nutritious with protein, vitamins, and healthy fats. 1-2 eggs daily is healthy!"
+                },
+                {
+                    text: "Indian spices like cumin, coriander aid digestion",
+                    truth: true,
+                    explanation: "✅ FACT: Jeera (cumin) stimulates digestive enzymes, dhania (coriander) has fiber and anti-bloating properties. Indian spices genuinely support digestive health - use them liberally!"
+                },
+                {
+                    text: "Drinking tea/coffee on empty stomach is harmful",
+                    truth: true,
+                    explanation: "✅ FACT: Tea and coffee on empty stomach can increase stomach acid, cause acidity, and affect nutrient absorption. Better to have breakfast first, then enjoy your chai or coffee!"
+                },
+                {
+                    text: "Brown bread is always healthier than white bread",
+                    truth: false,
+                    explanation: "❌ MYTH: Many brown breads are just white bread with caramel coloring! Check labels for 'whole wheat' or 'whole grain' as first ingredient. Real whole wheat is healthier."
+                },
+                {
+                    text: "Eating fruits immediately after meals is unhealthy",
+                    truth: false,
+                    explanation: "❌ MYTH: You can eat fruits anytime! They provide fiber, vitamins. Some prefer spacing for better digestion, but there's no scientific evidence fruits harm digestion after meals."
+                },
+                {
+                    text: "Walking 10,000 steps daily improves overall health",
+                    truth: true,
+                    explanation: "✅ FACT: 10,000 steps (roughly 5km) helps cardiovascular health, weight management, reduces diabetes risk, and improves mental health. Even 7,000-8,000 steps daily is beneficial!"
+                },
+                {
+                    text: "Eating carrots improves eyesight significantly",
+                    truth: false,
+                    explanation: "❌ MYTH: Carrots have vitamin A for eye health, but won't dramatically improve vision or cure eye problems. Balanced diet with various vegetables supports overall eye health better."
+                },
+                {
+                    text: "Practicing yoga regularly reduces stress and anxiety",
+                    truth: true,
+                    explanation: "✅ FACT: Yoga combines physical postures, breathing, and meditation - scientifically proven to lower cortisol (stress hormone), reduce anxiety, and improve mental wellbeing!"
+                },
+                {
+                    text: "You must drink 4 liters of water daily for good health",
+                    truth: false,
+                    explanation: "❌ MYTH: Water needs vary by person, activity, climate. Average is 2-3 liters daily. Drink when thirsty, check urine color (pale yellow is good). Excessive water can be harmful!"
+                }
+            ];
+
+            const handleAnswer = (answer) => {
+                if (answered) return;
+                
+                setAnswered(true);
+                setUserAnswer(answer);
+                
+                if (answer === statements[currentQ].truth) {
+                    setScore(score + 1);
+                }
+
+                setTimeout(() => {
+                    if (currentQ < statements.length - 1) {
+                        setCurrentQ(currentQ + 1);
+                        setAnswered(false);
+                        setUserAnswer(null);
+                    } else {
+                        setFinished(true);
+                    }
+                }, 3500);
+            };
+
+            const restart = () => {
+                setCurrentQ(0);
+                setScore(0);
+                setAnswered(false);
+                setUserAnswer(null);
+                setFinished(false);
+            };
+
+            if (finished) {
+                const percent = (score / statements.length) * 100;
+                return (
+                    <div className="game-card">
+                        <div className="score-display">
+                            <div className="score-emoji">{percent >= 75 ? '🎓' : percent >= 50 ? '📚' : '💡'}</div>
+                            <h2 style={{fontSize: '2rem', marginBottom: '1rem'}}>Game Complete!</h2>
+                            <div className="score-value">{score}/{statements.length}</div>
+                            <p style={{color: 'var(--text-dim)', fontSize: '1.2rem', marginBottom: '2rem'}}>
+                                {percent >= 80 ? "Amazing! You can spot health myths easily!" :
+                                 percent >= 60 ? "Good job! You know your health facts!" :
+                                 percent >= 40 ? "Not bad! Keep learning about health!" :
+                                 "Keep exploring! Learning never stops!"}
+                            </p>
+                            <div style={{
+                                background: 'rgba(99, 102, 241, 0.1)',
+                                padding: '1.5rem',
+                                borderRadius: '12px',
+                                marginBottom: '2rem',
+                                textAlign: 'left'
+                            }}>
+                                <h4 style={{color: 'var(--text)', marginBottom: '1rem', fontSize: '1.1rem'}}>
+                                    💡 Key Takeaways:
+                                </h4>
+                                <ul style={{color: 'var(--text-dim)', lineHeight: '1.8', paddingLeft: '1.5rem'}}>
+                                    <li>Don't believe health advice without scientific backing</li>
+                                    <li>Many Indian food myths are culturally rooted but not factual</li>
+                                    <li>Moderation and balance matter more than strict rules</li>
+                                    <li>Always consult healthcare professionals for personalized advice</li>
+                                </ul>
+                            </div>
+                            <button className="btn" onClick={restart}>Play Again</button>
+                        </div>
+                    </div>
+                );
+            }
+
+            const current = statements[currentQ];
+            const isCorrect = answered && userAnswer === current.truth;
+
+            return (
+                <div className="game-card">
+                    <div className="tool-header">
+                        <div className="tool-icon">🇮🇳</div>
+                        <h3 className="tool-title">Indian Health: Myth vs Fact</h3>
+                    </div>
+
+                    <div style={{marginBottom: '2rem'}}>
+                        <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '1rem'}}>
+                            <span style={{color: 'var(--text-dim)', fontWeight: '600'}}>
+                                Question {currentQ + 1}/{statements.length}
+                            </span>
+                            <span style={{color: '#6366f1', fontWeight: '700'}}>Score: {score}</span>
+                        </div>
+                        <div className="progress-bar">
+                            <div className="progress-fill" style={{
+                                width: `${((currentQ + 1) / statements.length) * 100}%`
+                            }}></div>
+                        </div>
+                    </div>
+
+                    <div style={{
+                        background: 'rgba(99, 102, 241, 0.05)',
+                        padding: '2rem',
+                        borderRadius: '16px',
+                        border: '2px solid rgba(99, 102, 241, 0.2)',
+                        marginBottom: '2rem'
+                    }}>
+                        <div style={{
+                            fontSize: '1.4rem',
+                            fontWeight: '600',
+                            color: 'var(--text)',
+                            lineHeight: '1.6',
+                            textAlign: 'center'
+                        }}>
+                            "{current.text}"
+                        </div>
+                    </div>
+
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: '1fr 1fr',
+                        gap: '1.5rem',
+                        marginBottom: '2rem'
+                    }}>
+                        <button
+                            onClick={() => handleAnswer(true)}
+                            disabled={answered}
+                            style={{
+                                padding: '2rem',
+                                background: answered ? (current.truth ? 'rgba(16, 185, 129, 0.1)' : userAnswer === true ? 'rgba(239, 68, 68, 0.1)' : 'var(--bg)') : 'var(--bg)',
+                                border: `3px solid ${answered ? (current.truth ? '#10b981' : userAnswer === true ? '#ef4444' : 'var(--border)') : 'var(--border)'}`,
+                                borderRadius: '16px',
+                                cursor: answered ? 'default' : 'pointer',
+                                transition: 'all 0.3s',
+                                fontFamily: 'Plus Jakarta Sans, sans-serif'
+                            }}
+                            onMouseOver={(e) => {
+                                if (!answered) {
+                                    e.currentTarget.style.borderColor = '#10b981';
+                                    e.currentTarget.style.transform = 'scale(1.05)';
+                                }
+                            }}
+                            onMouseOut={(e) => {
+                                if (!answered) {
+                                    e.currentTarget.style.borderColor = 'var(--border)';
+                                    e.currentTarget.style.transform = 'scale(1)';
+                                }
+                            }}
+                        >
+                            <div style={{fontSize: '3rem', marginBottom: '0.5rem'}}>✅</div>
+                            <div style={{fontSize: '1.3rem', fontWeight: '700', color: 'var(--text)'}}>
+                                FACT
+                            </div>
+                        </button>
+
+                        <button
+                            onClick={() => handleAnswer(false)}
+                            disabled={answered}
+                            style={{
+                                padding: '2rem',
+                                background: answered ? (!current.truth ? 'rgba(16, 185, 129, 0.1)' : userAnswer === false ? 'rgba(239, 68, 68, 0.1)' : 'var(--bg)') : 'var(--bg)',
+                                border: `3px solid ${answered ? (!current.truth ? '#10b981' : userAnswer === false ? '#ef4444' : 'var(--border)') : 'var(--border)'}`,
+                                borderRadius: '16px',
+                                cursor: answered ? 'default' : 'pointer',
+                                transition: 'all 0.3s',
+                                fontFamily: 'Plus Jakarta Sans, sans-serif'
+                            }}
+                            onMouseOver={(e) => {
+                                if (!answered) {
+                                    e.currentTarget.style.borderColor = '#ef4444';
+                                    e.currentTarget.style.transform = 'scale(1.05)';
+                                }
+                            }}
+                            onMouseOut={(e) => {
+                                if (!answered) {
+                                    e.currentTarget.style.borderColor = 'var(--border)';
+                                    e.currentTarget.style.transform = 'scale(1)';
+                                }
+                            }}
+                        >
+                            <div style={{fontSize: '3rem', marginBottom: '0.5rem'}}>❌</div>
+                            <div style={{fontSize: '1.3rem', fontWeight: '700', color: 'var(--text)'}}>
+                                MYTH
+                            </div>
+                        </button>
+                    </div>
+
+                    {answered && (
+                        <div style={{
+                            padding: '1.5rem',
+                            background: isCorrect ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+                            border: `2px solid ${isCorrect ? '#10b981' : '#ef4444'}`,
+                            borderRadius: '12px',
+                            animation: 'slideIn 0.3s ease-out'
+                        }}>
+                            <div style={{
+                                fontSize: '1.2rem',
+                                fontWeight: '700',
+                                color: isCorrect ? '#10b981' : '#ef4444',
+                                marginBottom: '0.75rem'
+                            }}>
+                                {isCorrect ? '🎉 Correct!' : '😅 Not quite!'}
+                            </div>
+                            <div style={{
+                                color: 'var(--text)',
+                                fontSize: '1.05rem',
+                                lineHeight: '1.7'
+                            }}>
+                                {current.explanation}
                             </div>
                         </div>
                     )}
