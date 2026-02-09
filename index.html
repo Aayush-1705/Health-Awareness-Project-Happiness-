@@ -840,10 +840,10 @@
                                 <div className="logo">FitLife</div>
                                 <ul className="nav">
                                     <li><a onClick={() => scrollTo('awareness')}>Health Tips</a></li>
-                                    <li><a onClick={() => scrollTo('videos')}>Videos</a></li>
+                                    <li><a onClick={() => scrollTo('videos')}>Workouts</a></li>
                                     <li><a onClick={() => scrollTo('exercises')}>Exercises</a></li>
                                     <li><a onClick={() => scrollTo('games')}>Games</a></li>
-                                    <li><a onClick={() => scrollTo('challenge')}>5-Day Challenge</a></li>
+                                    <li><a onClick={() => scrollTo('challenge')}>Challenge</a></li>
                                     <li><a onClick={() => scrollTo('tools')}>Tools</a></li>
                                 </ul>
                             </div>
@@ -869,8 +869,7 @@
 
                     <footer className="footer">
                         <div className="container">
-                            <p> MADE BY AAYUSH, ADITYA, DEV, SOURAV & ROHAN </P>
-                            <p>© 2026 FitLife - Your Health Awareness Platform</p>
+                            <p>© 2024 FitLife - Your Health Awareness Platform</p>
                         </div>
                     </footer>
                 </>
@@ -882,92 +881,33 @@
         }
 
         function VideosSection() {
-            const [selectedCategory, setSelectedCategory] = useState('all');
-
-            const videos = [
-                { id: 'qX9FSZJu448', title: 'Full Body Workout at Home', category: 'strength', duration: '15 min' },
-                { id: '3sEeVJEXTfY', title: '20 Min HIIT Cardio Workout', category: 'cardio', duration: '20 min' },
-                { id: 'COp7BR_Dvps', title: 'Yoga for Beginners', category: 'yoga', duration: '25 min' },
-                { id: 'g_tea8ZNk5A', title: 'Morning Stretching Routine', category: 'stretching', duration: '10 min' },
-                { id: 'ml6cT4AZdqI', title: 'Abs Workout - 10 Minutes', category: 'strength', duration: '10 min' },
-                { id: 'UBMk30rjy0o', title: 'Cardio Dance Workout', category: 'cardio', duration: '30 min' },
-                { id: 'v7AYKMP6rOE', title: 'Yoga for Flexibility', category: 'yoga', duration: '20 min' },
-                { id: 'sTANio_2E0Q', title: 'Full Body Stretching', category: 'stretching', duration: '15 min' },
+            const videoTips = [
+                { title: '🏃 Cardio Exercises', desc: 'Running, jumping jacks, burpees, high knees - get your heart pumping!', duration: '15-30 min' },
+                { title: '💪 Strength Training', desc: 'Push-ups, squats, lunges, planks - build muscle and strength!', duration: '20-30 min' },
+                { title: '🧘 Yoga & Flexibility', desc: 'Downward dog, cobra pose, child\'s pose - improve flexibility!', duration: '15-25 min' },
+                { title: '🤸 Full Body Workout', desc: 'Combine cardio and strength for complete fitness routine!', duration: '30-45 min' }
             ];
-
-            const categories = [
-                { id: 'all', name: 'All Videos', icon: '🎥' },
-                { id: 'strength', name: 'Strength', icon: '💪' },
-                { id: 'cardio', name: 'Cardio', icon: '🏃' },
-                { id: 'yoga', name: 'Yoga', icon: '🧘' },
-                { id: 'stretching', name: 'Stretching', icon: '🤸' }
-            ];
-
-            const filteredVideos = selectedCategory === 'all' 
-                ? videos 
-                : videos.filter(v => v.category === selectedCategory);
 
             return (
                 <section id="videos" className="section" style={{background: 'white'}}>
                     <div className="container">
                         <div className="section-header">
-                            <h2 className="section-title">Fitness Video Tutorials</h2>
-                            <p className="section-subtitle">Follow along with expert-guided workout videos</p>
-                        </div>
-
-                        <div style={{
-                            display: 'flex',
-                            gap: '1rem',
-                            justifyContent: 'center',
-                            marginBottom: '3rem',
-                            flexWrap: 'wrap'
-                        }}>
-                            {categories.map(cat => (
-                                <button
-                                    key={cat.id}
-                                    onClick={() => setSelectedCategory(cat.id)}
-                                    style={{
-                                        padding: '0.75rem 1.5rem',
-                                        background: selectedCategory === cat.id ? 'linear-gradient(135deg, #6366f1, #ec4899)' : 'var(--bg)',
-                                        color: selectedCategory === cat.id ? 'white' : 'var(--text)',
-                                        border: selectedCategory === cat.id ? 'none' : '2px solid var(--border)',
-                                        borderRadius: '25px',
-                                        cursor: 'pointer',
-                                        fontWeight: '600',
-                                        fontFamily: 'Plus Jakarta Sans, sans-serif',
-                                        transition: 'all 0.3s',
-                                        fontSize: '0.95rem'
-                                    }}
-                                    onMouseOver={(e) => {
-                                        if (selectedCategory !== cat.id) {
-                                            e.currentTarget.style.borderColor = '#6366f1';
-                                            e.currentTarget.style.transform = 'translateY(-2px)';
-                                        }
-                                    }}
-                                    onMouseOut={(e) => {
-                                        if (selectedCategory !== cat.id) {
-                                            e.currentTarget.style.borderColor = 'var(--border)';
-                                            e.currentTarget.style.transform = 'translateY(0)';
-                                        }
-                                    }}
-                                >
-                                    {cat.icon} {cat.name}
-                                </button>
-                            ))}
+                            <h2 className="section-title">Workout Guides</h2>
+                            <p className="section-subtitle">Follow these exercise routines for a healthier you</p>
                         </div>
 
                         <div style={{
                             display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
                             gap: '2rem'
                         }}>
-                            {filteredVideos.map((video, idx) => (
+                            {videoTips.map((tip, idx) => (
                                 <div key={idx} style={{
                                     background: 'var(--card-bg)',
+                                    padding: '2rem',
                                     borderRadius: '16px',
-                                    overflow: 'hidden',
                                     border: '1px solid var(--border)',
-                                    transition: 'transform 0.3s, box-shadow 0.3s'
+                                    transition: 'all 0.3s'
                                 }}
                                 onMouseOver={(e) => {
                                     e.currentTarget.style.transform = 'translateY(-5px)';
@@ -977,30 +917,31 @@
                                     e.currentTarget.style.transform = 'translateY(0)';
                                     e.currentTarget.style.boxShadow = 'none';
                                 }}>
-                                    <div style={{position: 'relative', paddingBottom: '56.25%', height: 0}}>
-                                        <iframe
-                                            style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}}
-                                            src={`https://www.youtube.com/embed/${video.id}`}
-                                            frameBorder="0"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowFullScreen
-                                        ></iframe>
-                                    </div>
-                                    <div style={{padding: '1.25rem'}}>
-                                        <h4 style={{color: 'var(--text)', fontSize: '1.1rem', marginBottom: '0.5rem', fontWeight: '600'}}>
-                                            {video.title}
-                                        </h4>
-                                        <div style={{
-                                            display: 'inline-block',
-                                            padding: '0.35rem 0.75rem',
-                                            background: 'rgba(99, 102, 241, 0.1)',
-                                            color: '#6366f1',
-                                            borderRadius: '12px',
-                                            fontSize: '0.85rem',
-                                            fontWeight: '600'
-                                        }}>
-                                            ⏱️ {video.duration}
-                                        </div>
+                                    <h3 style={{
+                                        color: 'var(--text)',
+                                        fontSize: '1.4rem',
+                                        marginBottom: '1rem',
+                                        fontWeight: '700'
+                                    }}>
+                                        {tip.title}
+                                    </h3>
+                                    <p style={{
+                                        color: 'var(--text-dim)',
+                                        marginBottom: '1rem',
+                                        lineHeight: '1.7'
+                                    }}>
+                                        {tip.desc}
+                                    </p>
+                                    <div style={{
+                                        display: 'inline-block',
+                                        padding: '0.5rem 1rem',
+                                        background: 'rgba(99, 102, 241, 0.1)',
+                                        color: '#6366f1',
+                                        borderRadius: '12px',
+                                        fontSize: '0.9rem',
+                                        fontWeight: '600'
+                                    }}>
+                                        ⏱️ {tip.duration}
                                     </div>
                                 </div>
                             ))}
