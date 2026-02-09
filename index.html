@@ -1285,6 +1285,94 @@
 
                 // Comprehensive nutrition database (80+ foods)
                 const nutritionDB = {
+                    // Indian Breads & Grains
+                    'chapati': { name: 'Chapati (Roti)', serving: '1 medium (40g)', calories: 104, protein: '3.1g', carbs: '18g', fat: '2.4g' },
+                    'roti': { name: 'Chapati (Roti)', serving: '1 medium (40g)', calories: 104, protein: '3.1g', carbs: '18g', fat: '2.4g' },
+                    'naan': { name: 'Naan', serving: '1 medium (90g)', calories: 262, protein: '9g', carbs: '45g', fat: '4.2g' },
+                    'paratha': { name: 'Paratha (plain)', serving: '1 medium (60g)', calories: 210, protein: '4.5g', carbs: '24g', fat: '10g' },
+                    'aloo paratha': { name: 'Aloo Paratha', serving: '1 medium (100g)', calories: 290, protein: '6g', carbs: '35g', fat: '14g' },
+                    'puri': { name: 'Puri', serving: '1 medium (25g)', calories: 112, protein: '2g', carbs: '13g', fat: '6g' },
+                    'bhatura': { name: 'Bhatura', serving: '1 medium (60g)', calories: 230, protein: '4.8g', carbs: '28g', fat: '11g' },
+                    'dosa': { name: 'Plain Dosa', serving: '1 medium (120g)', calories: 168, protein: '4g', carbs: '30g', fat: '3.5g' },
+                    'masala dosa': { name: 'Masala Dosa', serving: '1 medium (200g)', calories: 285, protein: '6g', carbs: '45g', fat: '8g' },
+                    'idli': { name: 'Idli', serving: '2 pieces (100g)', calories: 156, protein: '4.8g', carbs: '30g', fat: '1.2g' },
+                    'uttapam': { name: 'Uttapam', serving: '1 medium (150g)', calories: 207, protein: '5g', carbs: '38g', fat: '4g' },
+                    
+                    // Indian Rice Dishes
+                    'basmati rice': { name: 'Basmati Rice (cooked)', serving: '1 cup (158g)', calories: 191, protein: '4g', carbs: '41g', fat: '0.5g' },
+                    'jeera rice': { name: 'Jeera Rice', serving: '1 cup (200g)', calories: 220, protein: '4.5g', carbs: '43g', fat: '4g' },
+                    'biryani': { name: 'Chicken Biryani', serving: '1 cup (250g)', calories: 375, protein: '18g', carbs: '48g', fat: '12g' },
+                    'veg biryani': { name: 'Vegetable Biryani', serving: '1 cup (250g)', calories: 290, protein: '7g', carbs: '52g', fat: '6g' },
+                    'pulao': { name: 'Vegetable Pulao', serving: '1 cup (200g)', calories: 245, protein: '5g', carbs: '42g', fat: '6g' },
+                    'fried rice': { name: 'Fried Rice', serving: '1 cup (198g)', calories: 333, protein: '5.5g', carbs: '48g', fat: '12g' },
+                    'lemon rice': { name: 'Lemon Rice', serving: '1 cup (200g)', calories: 235, protein: '4g', carbs: '44g', fat: '5g' },
+                    'curd rice': { name: 'Curd Rice', serving: '1 cup (250g)', calories: 268, protein: '7g', carbs: '45g', fat: '6g' },
+                    
+                    // Dal & Lentils
+                    'dal': { name: 'Dal (Mixed Lentils)', serving: '1 cup (200g)', calories: 212, protein: '14g', carbs: '32g', fat: '3.5g' },
+                    'dal tadka': { name: 'Dal Tadka', serving: '1 cup (200g)', calories: 235, protein: '12g', carbs: '30g', fat: '7g' },
+                    'dal fry': { name: 'Dal Fry', serving: '1 cup (200g)', calories: 228, protein: '13g', carbs: '31g', fat: '6g' },
+                    'dal makhani': { name: 'Dal Makhani', serving: '1 cup (240g)', calories: 285, protein: '14g', carbs: '28g', fat: '13g' },
+                    'chana dal': { name: 'Chana Dal', serving: '1 cup cooked (200g)', calories: 269, protein: '15g', carbs: '45g', fat: '4g' },
+                    'moong dal': { name: 'Moong Dal', serving: '1 cup cooked (200g)', calories: 212, protein: '14g', carbs: '39g', fat: '0.8g' },
+                    'toor dal': { name: 'Toor Dal (Arhar)', serving: '1 cup cooked (200g)', calories: 221, protein: '11g', carbs: '40g', fat: '1g' },
+                    'masoor dal': { name: 'Masoor Dal', serving: '1 cup cooked (198g)', calories: 230, protein: '18g', carbs: '40g', fat: '0.8g' },
+                    'urad dal': { name: 'Urad Dal', serving: '1 cup cooked (200g)', calories: 242, protein: '18g', carbs: '38g', fat: '1.2g' },
+                    'rajma': { name: 'Rajma (Kidney Beans Curry)', serving: '1 cup (250g)', calories: 285, protein: '16g', carbs: '42g', fat: '6g' },
+                    'chole': { name: 'Chole (Chickpea Curry)', serving: '1 cup (240g)', calories: 304, protein: '16g', carbs: '45g', fat: '8g' },
+                    'sambhar': { name: 'Sambhar', serving: '1 cup (240g)', calories: 145, protein: '7g', carbs: '24g', fat: '3g' },
+                    
+                    // Indian Curries & Gravies
+                    'paneer butter masala': { name: 'Paneer Butter Masala', serving: '1 cup (240g)', calories: 385, protein: '16g', carbs: '18g', fat: '28g' },
+                    'palak paneer': { name: 'Palak Paneer', serving: '1 cup (240g)', calories: 295, protein: '14g', carbs: '12g', fat: '22g' },
+                    'kadai paneer': { name: 'Kadai Paneer', serving: '1 cup (240g)', calories: 340, protein: '15g', carbs: '14g', fat: '26g' },
+                    'shahi paneer': { name: 'Shahi Paneer', serving: '1 cup (240g)', calories: 368, protein: '14g', carbs: '16g', fat: '29g' },
+                    'matar paneer': { name: 'Matar Paneer', serving: '1 cup (240g)', calories: 315, protein: '13g', carbs: '20g', fat: '21g' },
+                    'chicken curry': { name: 'Chicken Curry', serving: '1 cup (240g)', calories: 295, protein: '28g', carbs: '12g', fat: '16g' },
+                    'butter chicken': { name: 'Butter Chicken', serving: '1 cup (240g)', calories: 438, protein: '30g', carbs: '14g', fat: '31g' },
+                    'tikka masala': { name: 'Chicken Tikka Masala', serving: '1 cup (240g)', calories: 365, protein: '32g', carbs: '10g', fat: '23g' },
+                    'korma': { name: 'Chicken Korma', serving: '1 cup (240g)', calories: 385, protein: '28g', carbs: '16g', fat: '25g' },
+                    'vindaloo': { name: 'Chicken Vindaloo', serving: '1 cup (240g)', calories: 285, protein: '26g', carbs: '12g', fat: '15g' },
+                    'fish curry': { name: 'Fish Curry', serving: '1 cup (240g)', calories: 245, protein: '24g', carbs: '10g', fat: '13g' },
+                    'egg curry': { name: 'Egg Curry', serving: '2 eggs with gravy (200g)', calories: 285, protein: '16g', carbs: '12g', fat: '19g' },
+                    'aloo gobi': { name: 'Aloo Gobi', serving: '1 cup (200g)', calories: 158, protein: '3.5g', carbs: '24g', fat: '6g' },
+                    'baingan bharta': { name: 'Baingan Bharta', serving: '1 cup (200g)', calories: 142, protein: '3g', carbs: '18g', fat: '7g' },
+                    'bhindi masala': { name: 'Bhindi Masala (Okra)', serving: '1 cup (150g)', calories: 125, protein: '3g', carbs: '16g', fat: '6g' },
+                    'malai kofta': { name: 'Malai Kofta', serving: '3 koftas with gravy (200g)', calories: 425, protein: '12g', carbs: '28g', fat: '30g' },
+                    
+                    // Indian Snacks
+                    'samosa': { name: 'Samosa', serving: '1 medium (50g)', calories: 153, protein: '3g', carbs: '18g', fat: '8g' },
+                    'pakora': { name: 'Vegetable Pakora', serving: '5 pieces (75g)', calories: 185, protein: '4g', carbs: '22g', fat: '9g' },
+                    'kachori': { name: 'Kachori', serving: '1 medium (50g)', calories: 178, protein: '4g', carbs: '20g', fat: '9g' },
+                    'vada': { name: 'Medu Vada', serving: '1 piece (50g)', calories: 145, protein: '4.5g', carbs: '15g', fat: '7g' },
+                    'bhel puri': { name: 'Bhel Puri', serving: '1 cup (100g)', calories: 168, protein: '4g', carbs: '30g', fat: '4g' },
+                    'pani puri': { name: 'Pani Puri', serving: '6 pieces (100g)', calories: 125, protein: '3g', carbs: '25g', fat: '2g' },
+                    'dhokla': { name: 'Dhokla', serving: '2 pieces (100g)', calories: 160, protein: '5g', carbs: '28g', fat: '3g' },
+                    'poha': { name: 'Poha (Beaten Rice)', serving: '1 cup (150g)', calories: 180, protein: '4g', carbs: '35g', fat: '3g' },
+                    'upma': { name: 'Upma', serving: '1 cup (200g)', calories: 198, protein: '5g', carbs: '38g', fat: '4g' },
+                    
+                    // Indian Dairy Products
+                    'paneer': { name: 'Paneer (Indian Cottage Cheese)', serving: '100g', calories: 265, protein: '18g', carbs: '3.6g', fat: '20g' },
+                    'ghee': { name: 'Ghee (Clarified Butter)', serving: '1 tbsp (14g)', calories: 112, protein: '0g', carbs: '0g', fat: '13g' },
+                    'dahi': { name: 'Dahi (Curd/Yogurt)', serving: '1 cup (240g)', calories: 154, protein: '13g', carbs: '17g', fat: '4g' },
+                    'lassi': { name: 'Sweet Lassi', serving: '1 glass (240ml)', calories: 168, protein: '8g', carbs: '26g', fat: '4g' },
+                    'buttermilk': { name: 'Buttermilk (Chaas)', serving: '1 glass (240ml)', calories: 62, protein: '7g', carbs: '8g', fat: '1g' },
+                    'kheer': { name: 'Kheer (Rice Pudding)', serving: '1 cup (200g)', calories: 285, protein: '8g', carbs: '42g', fat: '10g' },
+                    'raita': { name: 'Raita (Cucumber)', serving: '1 cup (200g)', calories: 85, protein: '6g', carbs: '10g', fat: '2.5g' },
+                    
+                    // Indian Sweets
+                    'gulab jamun': { name: 'Gulab Jamun', serving: '2 pieces (60g)', calories: 175, protein: '3g', carbs: '28g', fat: '6g' },
+                    'jalebi': { name: 'Jalebi', serving: '2 pieces (50g)', calories: 150, protein: '1.5g', carbs: '32g', fat: '2.5g' },
+                    'ladoo': { name: 'Besan Ladoo', serving: '1 medium (40g)', calories: 168, protein: '4g', carbs: '22g', fat: '7g' },
+                    'barfi': { name: 'Milk Barfi', serving: '1 piece (30g)', calories: 125, protein: '3.5g', carbs: '18g', fat: '4.5g' },
+                    'halwa': { name: 'Sooji Halwa', serving: '1 cup (150g)', calories: 385, protein: '6g', carbs: '55g', fat: '16g' },
+                    'rasmalai': { name: 'Rasmalai', serving: '2 pieces (100g)', calories: 186, protein: '8g', carbs: '24g', fat: '7g' },
+                    
+                    // Indian Fruits
+                    'papaya': { name: 'Papaya', serving: '1 cup (140g)', calories: 55, protein: '0.9g', carbs: '14g', fat: '0.2g' },
+                    'pomegranate': { name: 'Pomegranate', serving: '1/2 fruit (87g)', calories: 72, protein: '1.5g', carbs: '16g', fat: '1g' },
+                    'guava': { name: 'Guava', serving: '1 medium (55g)', calories: 37, protein: '1.4g', carbs: '8g', fat: '0.5g' },
+                    
                     // Fruits
                     'apple': { name: 'Apple', serving: '1 medium (182g)', calories: 95, protein: '0.5g', carbs: '25g', fat: '0.3g' },
                     'banana': { name: 'Banana', serving: '1 medium (118g)', calories: 105, protein: '1.3g', carbs: '27g', fat: '0.4g' },
@@ -1498,6 +1586,18 @@
 
                 // Comprehensive health knowledge base
                 const healthAnswers = {
+                    // Indian Diet & Nutrition
+                    'chapati': 'Chapati (roti) is a healthy whole wheat flatbread. Benefits: Good source of complex carbs and fiber, supports digestive health, provides sustained energy, low in fat. Pair with protein-rich dal and vegetables for a balanced meal. Whole wheat chapati is better than refined flour options.',
+                    'dal': 'Dal (lentils) is an excellent protein source for vegetarians. Benefits: High in protein (12-18g per cup), rich in fiber, good for heart health, helps with blood sugar control, provides iron and folate. Different types: moong (light, easy to digest), masoor (iron-rich), chana (protein-rich), toor (vitamin-rich).',
+                    'indian diet': 'Traditional Indian diet can be very healthy when balanced! Focus on: whole grains (brown rice, whole wheat chapati), dal and legumes for protein, plenty of vegetables, use spices (turmeric, cumin) for health benefits. Limit: fried foods, excessive oil/ghee, white rice, refined flour products. Include yogurt for probiotics.',
+                    'roti vs rice': 'Both can be healthy choices! Chapati: higher in fiber and protein, lower glycemic index, keeps you fuller longer. Rice: easier to digest, good for quick energy, basmati has lower GI than white rice. Mix both in diet. Choose brown rice and whole wheat chapati for best nutrition.',
+                    'paneer': 'Paneer (Indian cottage cheese) is a great protein source. Per 100g: 265 calories, 18g protein, 20g fat. Benefits: builds muscle, strengthens bones (calcium-rich), good for teeth. Use in moderation due to fat content. Grilled or lightly cooked is healthier than deep-fried. Good alternative to meat for protein.',
+                    'ghee': 'Ghee (clarified butter) has health benefits when used in moderation. Contains healthy fats, vitamins A, E, K, butyric acid for gut health. Use 1-2 teaspoons daily max. Better than vegetable oils for high-heat cooking. However, it\'s high in saturated fat and calories (112 cal/tbsp), so don\'t overconsume.',
+                    'indian breakfast': 'Healthy Indian breakfast options: Poha (beaten rice with vegetables), upma (semolina with veggies), idli-sambhar (fermented rice cakes), dosa with coconut chutney, vegetable paratha, sprouts, fruits. Avoid: heavy fried foods, excessive oil, white bread. Include protein and fiber for sustained energy.',
+                    'vegetarian protein': 'Excellent vegetarian protein sources in Indian diet: Dal/lentils (12-18g/cup), paneer (18g/100g), chickpeas/rajma, soy products (tofu, soya chunks), nuts and seeds, quinoa, Greek yogurt, protein-rich grains. Combine different sources throughout day for complete amino acid profile.',
+                    'indian spices': 'Indian spices offer amazing health benefits! Turmeric: anti-inflammatory, antioxidant. Cumin: aids digestion, iron-rich. Ginger: reduces nausea, anti-inflammatory. Cinnamon: blood sugar control. Cardamom: digestive health. Fenugreek: blood sugar regulation. Use these daily in cooking for health benefits!',
+                    'south indian food': 'South Indian cuisine can be very healthy! Fermented foods like idli, dosa are probiotic-rich and easy to digest. Sambhar provides protein and vegetables. Coconut chutney has healthy fats. Choose: steamed idlis, plain dosa, sambhar, upma. Limit: deep-fried vadas, excessive oil, fried masala dosa.',
+                    'north indian food': 'North Indian food can be healthy with right choices! Choose: dal, rajma, chole, vegetable curries, tandoori dishes, whole wheat roti. Limit: heavy cream-based curries (korma, makhani), excessive butter/ghee, fried breads (puri, bhatura), naan. Use yogurt-based raita to balance meals.',
                     // Exercise & Fitness
                     'benefits of running': 'Running offers numerous benefits: improves cardiovascular health, strengthens bones and muscles, helps with weight management, reduces stress, boosts mood through endorphin release, improves sleep quality, and increases longevity. Start slow and build up gradually!',
                     'running': 'Running is an excellent cardio exercise! Benefits include improved heart health, calorie burning, stress relief, and increased endurance. For beginners: start with walk-run intervals, invest in proper shoes, warm up before and cool down after, and gradually increase distance by no more than 10% per week.',
